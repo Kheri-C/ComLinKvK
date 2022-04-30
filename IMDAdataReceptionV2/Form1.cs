@@ -18,7 +18,8 @@ namespace IMDAdataReceptionV2 {
 
         // Serial variables
         List<int> xValues = new List<int>();
-        List<int> yValues = new List<int>();
+        List<double> yValues = new List<double>();
+        List<double> yValues2 = new List<double>();
         int n = 1;
         // UDP variables
         int port;
@@ -35,6 +36,9 @@ namespace IMDAdataReceptionV2 {
             chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
             chart1.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
             chart1.Series[0].BorderWidth = 5;
+            chart2.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+            chart2.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+            chart2.Series[0].BorderWidth = 5;
             String[] ports = SerialPort.GetPortNames(); // Get availabre Serial ports
             comboBox1.Items.AddRange(ports); // Display the ports
             serialPort1.DataReceived += new SerialDataReceivedEventHandler(OnDataReceived);
@@ -68,23 +72,34 @@ namespace IMDAdataReceptionV2 {
 
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs e) {
             this.Invoke((MethodInvoker)delegate {
-                textBox2.Text = serialPort1.ReadLine(); 
-                if (n < 11) { // First 10 received messages
-                    xValues.Add(n);
-                    yValues.Add(Convert.ToInt32(textBox2.Text));
-                    n++;
-                    chart1.Series["Series1"].Points.DataBindXY(xValues, yValues);
-                    chart1.Invalidate();
-                }
-                else {
-                    for(int i=1; i<10; i++) { 
-                        yValues[i - 1] = yValues[i];
+                textBox2.Text = serialPort1.ReadLine();
+                if (textBox2.Text.Length == 18 && !textBox2.Text.Contains("NAN")) { // If a whole valid frame was received
+                    if (n < 11) { // First 10 received messages
+                        xValues.Add(n);
+
+                        yValues.Add(Convert.ToDouble(textBox2.Text.Substring(2, 5)));
+                        yValues2.Add(Convert.ToDouble(textBox2.Text.Substring(textBox2.Text.IndexOf('y') + 2, 5)));
+                        n++;
+                        chart1.Series["Series1"].Points.DataBindXY(xValues, yValues);
+                        chart2.Series["Series1"].Points.DataBindXY(xValues, yValues2);
+                        chart1.Invalidate();
+                        chart2.Invalidate();
                     }
-                    yValues[9] = Convert.ToInt32(serialPort1.ReadLine());
-                    chart1.Series["Series1"].Points.DataBindXY(xValues, yValues);
-                    chart1.Invalidate();
+                    else {
+                        for (int i = 1; i < 10; i++) {
+                            yValues[i - 1] = yValues[i];
+                        }
+                        yValues[9] = Convert.ToDouble(textBox2.Text.Substring(2, 5));
+                        for (int i = 1; i < 10; i++) {
+                            yValues2[i - 1] = yValues2[i];
+                        }
+                        yValues2[9] = Convert.ToDouble(textBox2.Text.Substring(textBox2.Text.IndexOf('y') + 2, 5));
+                        chart1.Series["Series1"].Points.DataBindXY(xValues, yValues);
+                        chart2.Series["Series1"].Points.DataBindXY(xValues, yValues2);
+                        chart1.Invalidate();
+                        chart2.Invalidate();
+                    }
                 }
-                
             });
         }
 
@@ -121,7 +136,7 @@ namespace IMDAdataReceptionV2 {
         }
 
         private void udpOnButton_Click(object sender, EventArgs e) {
-            if (!started) { // If the innitial hasn't been done
+            if (!started) { // If the initial configuration hasn't been done
                 if (int.TryParse(portInput.Text, out port)) {
                     serverEP = new IPEndPoint(IPAddress.Any, port);
                     udpServer = new UdpClient(serverEP);
@@ -137,7 +152,7 @@ namespace IMDAdataReceptionV2 {
                     chat.Text = "Please input a correct port";
                 }
             }
-            else { // Once the innitial configuration has been done
+            else { // Once the initial configuration has been done
                 if (status) { // If the server's turned off
                     serverThread.Abort();
                     statusIndicator.Value = 0;
