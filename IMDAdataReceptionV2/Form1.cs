@@ -94,7 +94,7 @@ namespace IMDAdataReceptionV2 {
                 else {
                     this.Invoke((MethodInvoker)delegate {
                         senseUDPmessageBox.Text = Encoding.ASCII.GetString(inputData);
-                        debugTextBox.Text = senseUDPmessageBox.Text.Length.ToString(); // Debug
+                        //debugTextBox.Text = senseUDPmessageBox.Text.Length.ToString(); // Debug
                         if (senseUDPmessageBox.Text.Length == 19 && !senseUDPmessageBox.Text.Contains("NAN")) { // If a whole valid frame was received
                             if (n < 11) { // First 10 received messages
                                 indexValues.Add(n);
@@ -141,7 +141,7 @@ namespace IMDAdataReceptionV2 {
                     switch (Encoding.ASCII.GetString(inputData)) {
                         case "x":
                             byte[] outputXZData = Encoding.ASCII.GetBytes(XZdataValues[9].ToString());
-                            animodUDPserver.Send(outputXZData, Encoding.ASCII.GetString(outputXZData).Length, animodUDPserverEP);
+                            animodUDPserver.Send(outputXZData, outputXZData.Length, animodUDPserverEP);
                             for (int i = 7; i >= 1; i--) {
                                 chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position
                             }
@@ -149,7 +149,7 @@ namespace IMDAdataReceptionV2 {
                             break;
                         case "y":
                             byte[] outputYZData = Encoding.ASCII.GetBytes(YZdataValues[9].ToString());
-                            animodUDPserver.Send(outputYZData, Encoding.ASCII.GetString(outputYZData).Length, animodUDPserverEP);
+                            animodUDPserver.Send(outputYZData, outputYZData.Length, animodUDPserverEP); // Send data
                             for (int i = 7; i >= 1; i--) {
                                 chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position
                             }
