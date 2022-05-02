@@ -16,61 +16,42 @@ using System.Net.Sockets;
 namespace IMDAdataReceptionV2 {
     public partial class Form1 : Form {
 
-        // Serial variables
-        List<int> xValues = new List<int>();
-        List<double> yValues = new List<double>();
-        List<double> yValues2 = new List<double>();
-        int n = 1;
-        // UDP variables
-        int port;
+        // General variables
+        String serverAddress;
+
+        // UDP sense variables
+        List<int> indexValues = new List<int>();
+        List<double> XZdataValues = new List<double>();
+        List<double> YZdataValues = new List<double>();
+        int n = 1, senseUDPport;
+        Thread senseUDPserverThread;
+        IPEndPoint senseUDPserverEP;
+        UdpClient senseUDPserver;
+        bool senseServerStatus, senseServerStarted = false, senseServerTurnedOff;
+
+        // UDP animod variables
+        int animodUDPport;
         String[] chatHistoryArray = new String[10];
-        String chatHistory, hostAddress;
-        Thread serverThread;
-        IPEndPoint serverEP;
-        UdpClient udpServer;
-        bool status, started = false, turnedOff;
+        String chatHistory;
+        Thread animodUDPserverThread;
+        IPEndPoint animodUDPserverEP;
+        UdpClient animodUDPserver;
+        bool animodServerStatus, animodServerStarted = false, animodServerTurnedOff;
 
         public Form1() {
             InitializeComponent();
-            // Change char appearance
-            chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
-            chart1.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
-            chart1.Series[0].BorderWidth = 5;
-            chart2.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
-            chart2.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
-            chart2.Series[0].BorderWidth = 5;
-            String[] ports = SerialPort.GetPortNames(); // Get availabre Serial ports
-            comboBox1.Items.AddRange(ports); // Display the ports
-            serialPort1.DataReceived += new SerialDataReceivedEventHandler(OnDataReceived);
-            hostAddress = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString(); // Get server's IP Address
-            serverAddress.Text = hostAddress; // Display the server's IP Address
+            // Change chart appearance
+            XZchart.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+            XZchart.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+            XZchart.Series[0].BorderWidth = 5;
+            YZchart.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+            YZchart.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+            YZchart.Series[0].BorderWidth = 5;
+            serverAddress = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString(); // Get server's IP Address
+            serverAddressBox.Text = serverAddress; // Display the server's IP Address
         }
 
-        private void button3_Click(object sender, EventArgs e) { // Open Serial port
-            try {
-                if(comboBox1.Text == "" || comboBox2.Text == "") {
-                    textBox2.Text = "Please select port settings";
-                }
-                else {
-                    serialPort1.PortName = comboBox1.Text;
-                    serialPort1.BaudRate = Convert.ToInt32(comboBox2.Text);
-                    serialPort1.Open();
-                    serialOpenButton.Enabled = false;
-                    serialCloseButton.Enabled = true;
-                }
-            }
-            catch (UnauthorizedAccessException) {
-                textBox2.Text = "Unauthorized Access";
-            }
-        }
-
-        private void button4_Click(object sender, EventArgs e) { // Close Serial port
-            serialPort1.Close();
-            serialCloseButton.Enabled = false;
-            serialOpenButton.Enabled = true;
-        }
-
-        private void OnDataReceived(object sender, SerialDataReceivedEventArgs e) {
+        /*private void OnDataReceived(object sender, SerialDataReceivedEventArgs e) {
             this.Invoke((MethodInvoker)delegate {
                 textBox2.Text = serialPort1.ReadLine();
                 if (textBox2.Text.Length == 18 && !textBox2.Text.Contains("NAN")) { // If a whole valid frame was received
@@ -101,69 +82,164 @@ namespace IMDAdataReceptionV2 {
                     }
                 }
             });
-        }
+        }*/
 
-        void Listen() {
+        void listenSense() {
             while (true) {
-                byte[] inputData = udpServer.Receive(ref serverEP); // Receive the informations
-                if (turnedOff) { // If the server was turned off and is now turned on
+                byte[] inputData = senseUDPserver.Receive(ref senseUDPserverEP); // Receive the informations
+                if (senseServerTurnedOff) { // If the server was turned off and is now turned on
                     inputData = Encoding.ASCII.GetBytes(""); // Delete what was stored in the buffer when the server was off
-                    turnedOff = false;
+                    senseServerTurnedOff = false;
                 }
                 else {
-                    for (int i = 9; i >= 1; i--) {
-                        chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position 
-                    }
-                    chatHistoryArray[0] = serverEP.Address.ToString() + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(inputData); // Insert the received information in the history
-                    if (Encoding.ASCII.GetString(inputData) == "r") { // If a request is received
-                        // Send data
-                        byte[] outputData = Encoding.ASCII.GetBytes(yValues[9].ToString());
-                        udpServer.Send(outputData, Encoding.ASCII.GetString(outputData).Length, serverEP);
-                        for (int i = 7; i >= 1; i--) {
-                            chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position
-                        }
-                        chatHistoryArray[0] = hostAddress + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(outputData); // Insert the sent data in the history
-                    }
-                    chatHistory = "";
-                    for (int i = 9; i >= 0; i--) {
-                        chatHistory += chatHistoryArray[i] + "\r\n\r\n"; // Append the history in a single String
-                    }
                     this.Invoke((MethodInvoker)delegate {
-                        chat.Text = chatHistory; // Update the history
+                        senseUDPmessageBox.Text = Encoding.ASCII.GetString(inputData);
+                        debugTextBox.Text = senseUDPmessageBox.Text.Length.ToString(); // Debug
+                        if (senseUDPmessageBox.Text.Length == 19 && !senseUDPmessageBox.Text.Contains("NAN")) { // If a whole valid frame was received
+                            if (n < 11) { // First 10 received messages
+                                indexValues.Add(n);
+                                XZdataValues.Add(Convert.ToDouble(senseUDPmessageBox.Text.Substring(2, 7)));
+                                YZdataValues.Add(Convert.ToDouble(senseUDPmessageBox.Text.Substring(senseUDPmessageBox.Text.IndexOf('y') + 2, 7)));
+                                n++;
+                                XZchart.Series["Series1"].Points.DataBindXY(indexValues, XZdataValues);
+                                YZchart.Series["Series1"].Points.DataBindXY(indexValues, YZdataValues);
+                                XZchart.Invalidate();
+                                YZchart.Invalidate();
+                            }
+                            else {
+                                for (int i = 1; i < 10; i++) {
+                                    XZdataValues[i - 1] = XZdataValues[i];
+                                }
+                                XZdataValues[9] = Convert.ToDouble(senseUDPmessageBox.Text.Substring(2, 7));
+                                for (int i = 1; i < 10; i++) {
+                                    YZdataValues[i - 1] = YZdataValues[i];
+                                }
+                                YZdataValues[9] = Convert.ToDouble(senseUDPmessageBox.Text.Substring(senseUDPmessageBox.Text.IndexOf('y') + 2, 7));
+                                XZchart.Series["Series1"].Points.DataBindXY(indexValues, XZdataValues);
+                                YZchart.Series["Series1"].Points.DataBindXY(indexValues, YZdataValues);
+                                XZchart.Invalidate();
+                                YZchart.Invalidate();
+                            }
+                        }
                     });
                 }
             }
         }
 
-        private void udpOnButton_Click(object sender, EventArgs e) {
-            if (!started) { // If the initial configuration hasn't been done
-                if (int.TryParse(portInput.Text, out port)) {
-                    serverEP = new IPEndPoint(IPAddress.Any, port);
-                    udpServer = new UdpClient(serverEP);
-                    // Start the thread
-                    serverThread = new Thread(() => Listen());
-                    serverThread.Start();
-                    statusIndicator.Value = 100;
-                    status = true;
-                    started = true;
-                    chat.Text = "";
+        void listenAnimod() {
+            while (true) {
+                byte[] inputData = animodUDPserver.Receive(ref animodUDPserverEP); // Receive the information
+                if (animodServerTurnedOff) { // If the server was turned off and is now turned on
+                    inputData = Encoding.ASCII.GetBytes(""); // Delete what was stored in the buffer when the server was off
+                    animodServerTurnedOff = false;
                 }
                 else {
-                    chat.Text = "Please input a correct port";
+                    for (int i = 9; i >= 1; i--) {
+                        chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position 
+                    }
+                    chatHistoryArray[0] = animodUDPserverEP.Address.ToString() + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(inputData); // Insert the received information in the history
+                    switch (Encoding.ASCII.GetString(inputData)) {
+                        case "x":
+                            byte[] outputXZData = Encoding.ASCII.GetBytes(XZdataValues[9].ToString());
+                            animodUDPserver.Send(outputXZData, Encoding.ASCII.GetString(outputXZData).Length, animodUDPserverEP);
+                            for (int i = 7; i >= 1; i--) {
+                                chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position
+                            }
+                            chatHistoryArray[0] = serverAddress + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(outputXZData); // Insert the sent data in the history
+                            break;
+                        case "y":
+                            byte[] outputYZData = Encoding.ASCII.GetBytes(YZdataValues[9].ToString());
+                            animodUDPserver.Send(outputYZData, Encoding.ASCII.GetString(outputYZData).Length, animodUDPserverEP);
+                            for (int i = 7; i >= 1; i--) {
+                                chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position
+                            }
+                            chatHistoryArray[0] = serverAddress + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(outputYZData); // Insert the sent data in the history
+                            break;
+                        default:
+                            break;
+                    }
+                    /*if (Encoding.ASCII.GetString(inputData) == "r") { // If a request is received
+                        // Send data
+                        byte[] outputData = Encoding.ASCII.GetBytes(XZdataValues[9].ToString());
+                        animodUDPserver.Send(outputData, Encoding.ASCII.GetString(outputData).Length, animodUDPserverEP);
+                        for (int i = 7; i >= 1; i--) {
+                            chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position
+                        }
+                        chatHistoryArray[0] = serverAddress + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(outputData); // Insert the sent data in the history
+                    }*/
+                    chatHistory = "";
+                    for (int i = 9; i >= 0; i--) {
+                        chatHistory += chatHistoryArray[i] + "\r\n\r\n"; // Append the history in a single String
+                    }
+                    this.Invoke((MethodInvoker)delegate {
+                        animodUDPchat.Text = chatHistory; // Update the history
+                    });
+                }
+            }
+        }
+
+        private void senseUDPpowerButton_Click(object sender, EventArgs e) {
+            if (!senseServerStarted) { // If the initial configuration hasn't been done
+                if (int.TryParse(senseUDPportBox.Text, out senseUDPport)) {
+                    senseUDPserverEP = new IPEndPoint(IPAddress.Any, senseUDPport);
+                    senseUDPserver = new UdpClient(senseUDPserverEP);
+                    // Start the thread
+                    senseUDPserverThread = new Thread(() => listenSense());
+                    senseUDPserverThread.Start();
+                    senseUDPstatusIndicator.Value = 100;
+                    senseServerStatus = true;
+                    senseServerStarted = true;
+                    senseUDPmessageBox.Text = "";
+                }
+                else {
+                    senseUDPmessageBox.Text = "Please input a correct port";
                 }
             }
             else { // Once the initial configuration has been done
-                if (status) { // If the server's turned off
-                    serverThread.Abort();
-                    statusIndicator.Value = 0;
-                    status = false;
-                    turnedOff = true;
+                if (senseServerStatus) { // If the server's turned off
+                    senseUDPserverThread.Abort();
+                    senseUDPstatusIndicator.Value = 0;
+                    senseServerStatus = false;
+                    senseServerTurnedOff = true;
                 }
                 else { // If the server's turned on
-                    serverThread = new Thread(() => Listen());
-                    serverThread.Start();
-                    statusIndicator.Value = 100;
-                    status = true;
+                    senseUDPserverThread = new Thread(() => listenSense());
+                    senseUDPserverThread.Start();
+                    senseUDPstatusIndicator.Value = 100;
+                    senseServerStatus = true;
+                }
+            }
+        }
+
+        private void animodUDPpowerButton_Click(object sender, EventArgs e) {
+            if (!animodServerStarted) { // If the initial configuration hasn't been done
+                if (int.TryParse(animodUDPportBox.Text, out animodUDPport)) {
+                    animodUDPserverEP = new IPEndPoint(IPAddress.Any, animodUDPport);
+                    animodUDPserver = new UdpClient(animodUDPserverEP);
+                    // Start the thread
+                    animodUDPserverThread = new Thread(() => listenAnimod());
+                    animodUDPserverThread.Start();
+                    animodUDPstatusIndicator.Value = 100;
+                    animodServerStatus = true;
+                    animodServerStarted = true;
+                    animodUDPchat.Text = "";
+                }
+                else {
+                    animodUDPchat.Text = "Please input a correct port";
+                }
+            }
+            else { // Once the initial configuration has been done
+                if (animodServerStatus) { // If the server's turned off
+                    animodUDPserverThread.Abort();
+                    animodUDPstatusIndicator.Value = 0;
+                    animodServerStatus = false;
+                    animodServerTurnedOff = true;
+                }
+                else { // If the server's turned on
+                    animodUDPserverThread = new Thread(() => listenAnimod());
+                    animodUDPserverThread.Start();
+                    animodUDPstatusIndicator.Value = 100;
+                    animodServerStatus = true;
                 }
             }
         }
