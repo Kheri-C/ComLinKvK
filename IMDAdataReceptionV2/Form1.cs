@@ -23,6 +23,10 @@ namespace IMDAdataReceptionV2 {
         List<int> indexValues = new List<int>();
         List<double> XZdataValues = new List<double>();
         List<double> YZdataValues = new List<double>();
+        CustomLabel fLabel = new CustomLabel(-90, -80, "F", 1, LabelMarkStyle.None);
+        CustomLabel bLabel = new CustomLabel(80, 90, "B", 1, LabelMarkStyle.None);
+        CustomLabel rLabel = new CustomLabel(80, 90, "R", 1, LabelMarkStyle.None);
+        CustomLabel lLabel = new CustomLabel(-90, -80, "L", 1, LabelMarkStyle.None);
         int n = 1, senseUDPport;
         Thread senseUDPserverThread;
         IPEndPoint senseUDPserverEP;
@@ -44,45 +48,26 @@ namespace IMDAdataReceptionV2 {
             XZchart.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
             XZchart.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
             XZchart.Series[0].BorderWidth = 5;
+            XZchart.ChartAreas["ChartArea1"].AxisY.Maximum = 90;
+            XZchart.ChartAreas["ChartArea1"].AxisY.Interval = 30;
+            XZchart.ChartAreas["ChartArea1"].AxisY.Minimum = -90;
+            XZchart.ChartAreas["ChartArea1"].AxisY.Title = "AngleXZ";
+            XZchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(fLabel);
+            XZchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(bLabel);
+
             YZchart.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
             YZchart.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
             YZchart.Series[0].BorderWidth = 5;
+            YZchart.ChartAreas["ChartArea1"].AxisY.Maximum = 90;
+            YZchart.ChartAreas["ChartArea1"].AxisY.Interval = 30;
+            YZchart.ChartAreas["ChartArea1"].AxisY.Minimum = -90;
+            YZchart.ChartAreas["ChartArea1"].AxisY.Title = "AngleYZ";
+            YZchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(rLabel);
+            YZchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(lLabel);
+
             serverAddress = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString(); // Get server's IP Address
             serverAddressBox.Text = serverAddress; // Display the server's IP Address
         }
-
-        /*private void OnDataReceived(object sender, SerialDataReceivedEventArgs e) {
-            this.Invoke((MethodInvoker)delegate {
-                textBox2.Text = serialPort1.ReadLine();
-                if (textBox2.Text.Length == 18 && !textBox2.Text.Contains("NAN")) { // If a whole valid frame was received
-                    if (n < 11) { // First 10 received messages
-                        xValues.Add(n);
-
-                        yValues.Add(Convert.ToDouble(textBox2.Text.Substring(2, 5)));
-                        yValues2.Add(Convert.ToDouble(textBox2.Text.Substring(textBox2.Text.IndexOf('y') + 2, 5)));
-                        n++;
-                        chart1.Series["Series1"].Points.DataBindXY(xValues, yValues);
-                        chart2.Series["Series1"].Points.DataBindXY(xValues, yValues2);
-                        chart1.Invalidate();
-                        chart2.Invalidate();
-                    }
-                    else {
-                        for (int i = 1; i < 10; i++) {
-                            yValues[i - 1] = yValues[i];
-                        }
-                        yValues[9] = Convert.ToDouble(textBox2.Text.Substring(2, 5));
-                        for (int i = 1; i < 10; i++) {
-                            yValues2[i - 1] = yValues2[i];
-                        }
-                        yValues2[9] = Convert.ToDouble(textBox2.Text.Substring(textBox2.Text.IndexOf('y') + 2, 5));
-                        chart1.Series["Series1"].Points.DataBindXY(xValues, yValues);
-                        chart2.Series["Series1"].Points.DataBindXY(xValues, yValues2);
-                        chart1.Invalidate();
-                        chart2.Invalidate();
-                    }
-                }
-            });
-        }*/
 
         void listenSense() {
             while (true) {
@@ -158,15 +143,6 @@ namespace IMDAdataReceptionV2 {
                         default:
                             break;
                     }
-                    /*if (Encoding.ASCII.GetString(inputData) == "r") { // If a request is received
-                        // Send data
-                        byte[] outputData = Encoding.ASCII.GetBytes(XZdataValues[9].ToString());
-                        animodUDPserver.Send(outputData, Encoding.ASCII.GetString(outputData).Length, animodUDPserverEP);
-                        for (int i = 7; i >= 1; i--) {
-                            chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position
-                        }
-                        chatHistoryArray[0] = serverAddress + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(outputData); // Insert the sent data in the history
-                    }*/
                     chatHistory = "";
                     for (int i = 9; i >= 0; i--) {
                         chatHistory += chatHistoryArray[i] + "\r\n\r\n"; // Append the history in a single String
