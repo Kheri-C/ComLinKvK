@@ -44,7 +44,7 @@ namespace IMDAdataReceptionV2 {
 
         public Form1() {
             InitializeComponent();
-            // Change chart appearance
+            // Change chart appearance 
             XZchart.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
             XZchart.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
             XZchart.Series[0].BorderWidth = 5;
