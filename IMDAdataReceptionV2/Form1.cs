@@ -19,19 +19,30 @@ namespace IMDAdataReceptionV2 {
         // General variables
         String serverAddress;
 
-        // UDP sense variables
-        List<int> indexValues = new List<int>();
-        List<double> XZdataValues = new List<double>();
-        List<double> YZdataValues = new List<double>();
-        CustomLabel fLabel = new CustomLabel(-90, -80, "F", 1, LabelMarkStyle.None);
-        CustomLabel bLabel = new CustomLabel(80, 90, "B", 1, LabelMarkStyle.None);
-        CustomLabel rLabel = new CustomLabel(80, 90, "R", 1, LabelMarkStyle.None);
-        CustomLabel lLabel = new CustomLabel(-90, -80, "L", 1, LabelMarkStyle.None);
-        int n = 1, senseUDPport;
+        // UDP sense general variables
+        CustomLabel fRotLabel = new CustomLabel(-90, -80, "F", 1, LabelMarkStyle.None);
+        CustomLabel bRotLabel = new CustomLabel(80, 90, "B", 1, LabelMarkStyle.None);
+        CustomLabel rRotLabel = new CustomLabel(80, 90, "R", 1, LabelMarkStyle.None);
+        CustomLabel lRotLabel = new CustomLabel(-90, -80, "L", 1, LabelMarkStyle.None);
+        CustomLabel rAccLabel = new CustomLabel(13,15,"R", 1, LabelMarkStyle.None);
+        CustomLabel lAccLabel = new CustomLabel(-15, -13, "L", 1, LabelMarkStyle.None);
+        int senseUDPport;
         Thread senseUDPserverThread;
         IPEndPoint senseUDPserverEP;
         UdpClient senseUDPserver;
         bool senseServerStatus, senseServerStarted = false, senseServerTurnedOff;
+        String sensor;
+
+        // Left arm sense variables
+        int n = 1;
+        List<int> alIndexValues = new List<int>();
+        List<double> alXZdataValues = new List<double>();
+        List<double> alYZdataValues = new List<double>();
+        List<double> alXdataValues = new List<double>();
+        List<double> alYdataValues = new List<double>();
+        List<double> alZdataValues = new List<double>();
+
+        // Right arm sense variables
 
         // UDP animod variables
         int animodUDPport;
@@ -44,26 +55,52 @@ namespace IMDAdataReceptionV2 {
 
         public Form1() {
             InitializeComponent();
-            // Change chart appearance 
-            XZchart.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
-            XZchart.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
-            XZchart.Series[0].BorderWidth = 5;
-            XZchart.ChartAreas["ChartArea1"].AxisY.Maximum = 90;
-            XZchart.ChartAreas["ChartArea1"].AxisY.Interval = 30;
-            XZchart.ChartAreas["ChartArea1"].AxisY.Minimum = -90;
-            XZchart.ChartAreas["ChartArea1"].AxisY.Title = "AngleXZ";
-            XZchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(fLabel);
-            XZchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(bLabel);
+            //Size = new Size(1920, 830); // Full size without windows taskbar
+            alXZchart.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+            alXZchart.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+            alXZchart.Series[0].BorderWidth = 5;
+            alXZchart.ChartAreas["ChartArea1"].AxisY.Maximum = 90;
+            alXZchart.ChartAreas["ChartArea1"].AxisY.Interval = 30;
+            alXZchart.ChartAreas["ChartArea1"].AxisY.Minimum = -90;
+            alXZchart.ChartAreas["ChartArea1"].AxisY.Title = "RotXZ";
+            alXZchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(fRotLabel);
+            alXZchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(bRotLabel);
 
-            YZchart.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
-            YZchart.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
-            YZchart.Series[0].BorderWidth = 5;
-            YZchart.ChartAreas["ChartArea1"].AxisY.Maximum = 90;
-            YZchart.ChartAreas["ChartArea1"].AxisY.Interval = 30;
-            YZchart.ChartAreas["ChartArea1"].AxisY.Minimum = -90;
-            YZchart.ChartAreas["ChartArea1"].AxisY.Title = "AngleYZ";
-            YZchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(rLabel);
-            YZchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(lLabel);
+            alYZchart.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+            alYZchart.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+            alYZchart.Series[0].BorderWidth = 5;
+            alYZchart.ChartAreas["ChartArea1"].AxisY.Maximum = 90;
+            alYZchart.ChartAreas["ChartArea1"].AxisY.Interval = 30;
+            alYZchart.ChartAreas["ChartArea1"].AxisY.Minimum = -90;
+            alYZchart.ChartAreas["ChartArea1"].AxisY.Title = "RotYZ";
+            alYZchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(rRotLabel);
+            alYZchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(lRotLabel);
+
+            alXchart.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+            alXchart.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+            alXchart.Series[0].BorderWidth = 3;
+            alXchart.ChartAreas["ChartArea1"].AxisY.Maximum = 15;
+            alXchart.ChartAreas["ChartArea1"].AxisY.Interval = 5;
+            alXchart.ChartAreas["ChartArea1"].AxisY.Minimum = -15;
+            alXchart.ChartAreas["ChartArea1"].AxisY.Title = "AccX";
+            alXchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(rAccLabel);
+            alXchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(lAccLabel);
+
+            alYchart.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+            alYchart.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+            alYchart.Series[0].BorderWidth = 3;
+            alYchart.ChartAreas["ChartArea1"].AxisY.Maximum = 15;
+            alYchart.ChartAreas["ChartArea1"].AxisY.Interval = 5;
+            alYchart.ChartAreas["ChartArea1"].AxisY.Minimum = -15;
+            alYchart.ChartAreas["ChartArea1"].AxisY.Title = "AccY";
+
+            alZchart.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+            alZchart.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+            alZchart.Series[0].BorderWidth = 3;
+            alZchart.ChartAreas["ChartArea1"].AxisY.Maximum = 15;
+            alZchart.ChartAreas["ChartArea1"].AxisY.Interval = 5;
+            alZchart.ChartAreas["ChartArea1"].AxisY.Minimum = -15;
+            alZchart.ChartAreas["ChartArea1"].AxisY.Title = "AccZ";
 
             serverAddress = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString(); // Get server's IP Address
             serverAddressBox.Text = serverAddress; // Display the server's IP Address
@@ -79,31 +116,47 @@ namespace IMDAdataReceptionV2 {
                 else {
                     this.Invoke((MethodInvoker)delegate {
                         senseUDPmessageBox.Text = Encoding.ASCII.GetString(inputData);
-                        //debugTextBox.Text = senseUDPmessageBox.Text.Length.ToString(); // Debug
-                        if (senseUDPmessageBox.Text.Length == 19 && !senseUDPmessageBox.Text.Contains("NAN")) { // If a whole valid frame was received
-                            if (n < 11) { // First 10 received messages
-                                indexValues.Add(n);
-                                XZdataValues.Add(Convert.ToDouble(senseUDPmessageBox.Text.Substring(2, 7)));
-                                YZdataValues.Add(Convert.ToDouble(senseUDPmessageBox.Text.Substring(senseUDPmessageBox.Text.IndexOf('y') + 2, 7)));
-                                n++;
-                                XZchart.Series["Series1"].Points.DataBindXY(indexValues, XZdataValues);
-                                YZchart.Series["Series1"].Points.DataBindXY(indexValues, YZdataValues);
-                                XZchart.Invalidate();
-                                YZchart.Invalidate();
-                            }
-                            else {
-                                for (int i = 1; i < 10; i++) {
-                                    XZdataValues[i - 1] = XZdataValues[i];
-                                }
-                                XZdataValues[9] = Convert.ToDouble(senseUDPmessageBox.Text.Substring(2, 7));
-                                for (int i = 1; i < 10; i++) {
-                                    YZdataValues[i - 1] = YZdataValues[i];
-                                }
-                                YZdataValues[9] = Convert.ToDouble(senseUDPmessageBox.Text.Substring(senseUDPmessageBox.Text.IndexOf('y') + 2, 7));
-                                XZchart.Series["Series1"].Points.DataBindXY(indexValues, XZdataValues);
-                                YZchart.Series["Series1"].Points.DataBindXY(indexValues, YZdataValues);
-                                XZchart.Invalidate();
-                                YZchart.Invalidate();
+                        debugTextBox.Text = senseUDPmessageBox.Text.Substring(0,2); // Debug
+                        if (senseUDPmessageBox.Text.Length == 50 && !senseUDPmessageBox.Text.Contains("NAN")) { // If a whole valid frame was received
+                            sensor = senseUDPmessageBox.Text.Substring(0,2);
+                            switch (sensor) {
+                                case "AL":
+                                    if (n < 11) { // First 10 received messages
+                                        alIndexValues.Add(n);
+                                        alXZdataValues.Add(Convert.ToDouble(senseUDPmessageBox.Text.Substring(6,6)));
+                                        alYZdataValues.Add(Convert.ToDouble(senseUDPmessageBox.Text.Substring(16,6)));
+                                        alXdataValues.Add(Convert.ToDouble(senseUDPmessageBox.Text.Substring(25, 6)));
+                                        alYdataValues.Add(Convert.ToDouble(senseUDPmessageBox.Text.Substring(34, 6)));
+                                        alZdataValues.Add(Convert.ToDouble(senseUDPmessageBox.Text.Substring(43, 6)));
+                                        n++;
+                                    }
+                                    else {
+                                        for (int i = 1; i < 10; i++) {
+                                            alXZdataValues[i - 1] = alXZdataValues[i];
+                                            alYZdataValues[i - 1] = alYZdataValues[i];
+                                            alXdataValues[i - 1] = alXdataValues[i];
+                                            alYdataValues[i - 1] = alYdataValues[i];
+                                            alZdataValues[i - 1] = alZdataValues[i];
+                                        }
+                                        alXZdataValues[9] = Convert.ToDouble(senseUDPmessageBox.Text.Substring(6,6));
+                                        alYZdataValues[9] = Convert.ToDouble(senseUDPmessageBox.Text.Substring(16,6));
+                                        alXdataValues[9] = Convert.ToDouble(senseUDPmessageBox.Text.Substring(25, 6));
+                                        alYdataValues[9] = Convert.ToDouble(senseUDPmessageBox.Text.Substring(34, 6));
+                                        alZdataValues[9] = Convert.ToDouble(senseUDPmessageBox.Text.Substring(34, 6));
+                                    }
+                                    alXZchart.Series["Series1"].Points.DataBindXY(alIndexValues, alXZdataValues);
+                                    alYZchart.Series["Series1"].Points.DataBindXY(alIndexValues, alYZdataValues);
+                                    alXchart.Series["Series1"].Points.DataBindXY(alIndexValues, alXdataValues);
+                                    alYchart.Series["Series1"].Points.DataBindXY(alIndexValues, alYdataValues);
+                                    alZchart.Series["Series1"].Points.DataBindXY(alIndexValues, alZdataValues);
+                                    alXZchart.Invalidate();
+                                    alYZchart.Invalidate();
+                                    alXchart.Invalidate();
+                                    alYchart.Invalidate();
+                                    alZchart.Invalidate();
+                                    break;
+                                default:
+                                    break;
                             }
                         }
                     });
@@ -125,7 +178,7 @@ namespace IMDAdataReceptionV2 {
                     chatHistoryArray[0] = animodUDPserverEP.Address.ToString() + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(inputData); // Insert the received information in the history
                     switch (Encoding.ASCII.GetString(inputData)) {
                         case "x":
-                            byte[] outputXZData = Encoding.ASCII.GetBytes(XZdataValues[9].ToString());
+                            byte[] outputXZData = Encoding.ASCII.GetBytes(alXZdataValues[9].ToString());
                             animodUDPserver.Send(outputXZData, outputXZData.Length, animodUDPserverEP);
                             for (int i = 7; i >= 1; i--) {
                                 chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position
@@ -133,7 +186,7 @@ namespace IMDAdataReceptionV2 {
                             chatHistoryArray[0] = serverAddress + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(outputXZData); // Insert the sent data in the history
                             break;
                         case "y":
-                            byte[] outputYZData = Encoding.ASCII.GetBytes(YZdataValues[9].ToString());
+                            byte[] outputYZData = Encoding.ASCII.GetBytes(alYZdataValues[9].ToString());
                             animodUDPserver.Send(outputYZData, outputYZData.Length, animodUDPserverEP); // Send data
                             for (int i = 7; i >= 1; i--) {
                                 chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position
