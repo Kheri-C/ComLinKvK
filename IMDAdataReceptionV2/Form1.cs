@@ -32,17 +32,26 @@ namespace IMDAdataReceptionV2 {
         UdpClient senseUDPserver;
         bool senseServerStatus, senseServerStarted = false, senseServerTurnedOff;
         String sensor;
+        int index = 1;
+        List<double> dataValues = new List<double>();
 
         // Left arm sense variables
-        int n = 1;
+        /*int alIndex = 1;
         List<int> alIndexValues = new List<int>();
         List<double> alXZdataValues = new List<double>();
         List<double> alYZdataValues = new List<double>();
         List<double> alXdataValues = new List<double>();
         List<double> alYdataValues = new List<double>();
-        List<double> alZdataValues = new List<double>();
+        List<double> alZdataValues = new List<double>();*/
 
         // Right arm sense variables
+        /*int arIndex = 1;
+        List<int> arIndexValues = new List<int>();
+        List<double> arXZdataValues = new List<double>();
+        List<double> arYZdataValues = new List<double>();
+        List<double> arXdataValues = new List<double>();
+        List<double> arYdataValues = new List<double>();
+        List<double> arZdataValues = new List<double>();*/
 
         // UDP animod variables
         int animodUDPport;
@@ -56,54 +65,118 @@ namespace IMDAdataReceptionV2 {
         public Form1() {
             InitializeComponent();
             //Size = new Size(1920, 830); // Full size without windows taskbar
-            alXZchart.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
-            alXZchart.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
-            alXZchart.Series[0].BorderWidth = 5;
-            alXZchart.ChartAreas["ChartArea1"].AxisY.Maximum = 90;
-            alXZchart.ChartAreas["ChartArea1"].AxisY.Interval = 30;
-            alXZchart.ChartAreas["ChartArea1"].AxisY.Minimum = -90;
-            alXZchart.ChartAreas["ChartArea1"].AxisY.Title = "RotXZ";
-            alXZchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(fRotLabel);
-            alXZchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(bRotLabel);
-
-            alYZchart.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
-            alYZchart.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
-            alYZchart.Series[0].BorderWidth = 5;
-            alYZchart.ChartAreas["ChartArea1"].AxisY.Maximum = 90;
-            alYZchart.ChartAreas["ChartArea1"].AxisY.Interval = 30;
-            alYZchart.ChartAreas["ChartArea1"].AxisY.Minimum = -90;
-            alYZchart.ChartAreas["ChartArea1"].AxisY.Title = "RotYZ";
-            alYZchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(rRotLabel);
-            alYZchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(lRotLabel);
-
-            alXchart.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
-            alXchart.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
-            alXchart.Series[0].BorderWidth = 3;
-            alXchart.ChartAreas["ChartArea1"].AxisY.Maximum = 15;
-            alXchart.ChartAreas["ChartArea1"].AxisY.Interval = 5;
-            alXchart.ChartAreas["ChartArea1"].AxisY.Minimum = -15;
-            alXchart.ChartAreas["ChartArea1"].AxisY.Title = "AccX";
-            alXchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(rAccLabel);
-            alXchart.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(lAccLabel);
-
-            alYchart.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
-            alYchart.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
-            alYchart.Series[0].BorderWidth = 3;
-            alYchart.ChartAreas["ChartArea1"].AxisY.Maximum = 15;
-            alYchart.ChartAreas["ChartArea1"].AxisY.Interval = 5;
-            alYchart.ChartAreas["ChartArea1"].AxisY.Minimum = -15;
-            alYchart.ChartAreas["ChartArea1"].AxisY.Title = "AccY";
-
-            alZchart.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
-            alZchart.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
-            alZchart.Series[0].BorderWidth = 3;
-            alZchart.ChartAreas["ChartArea1"].AxisY.Maximum = 15;
-            alZchart.ChartAreas["ChartArea1"].AxisY.Interval = 5;
-            alZchart.ChartAreas["ChartArea1"].AxisY.Minimum = -15;
-            alZchart.ChartAreas["ChartArea1"].AxisY.Title = "AccZ";
-
             serverAddress = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString(); // Get server's IP Address
             serverAddressBox.Text = serverAddress; // Display the server's IP Address
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {
+            // borrar datos lista
+            switch (comboBox1.SelectedItem.ToString()) {
+                case "None":
+                    break;
+                case "Left Arm XZ Rotation":
+                    chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.Series[0].BorderWidth = 5;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Maximum = 90;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Interval = 30;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Minimum = -90;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Title = "alRotXZ";
+                    chart1.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(fRotLabel);
+                    chart1.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(bRotLabel);
+                    break;
+                case "Left Arm YZ Rotation":
+                    chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.Series[0].BorderWidth = 5;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Maximum = 90;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Interval = 30;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Minimum = -90;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Title = "alRotYZ";
+                    chart1.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(rRotLabel);
+                    chart1.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(lRotLabel);
+                    break;
+                case "Left Arm X Acceleration":
+                    chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.Series[0].BorderWidth = 3;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Maximum = 15;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Interval = 5;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Minimum = -15;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Title = "alAccX";
+                    chart1.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(rAccLabel);
+                    chart1.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(lAccLabel);
+                    break;
+                case "Left Arm Y Acceleration":
+                    chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.Series[0].BorderWidth = 3;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Maximum = 15;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Interval = 5;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Minimum = -15;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Title = "alAccY";
+                    break;
+                case "Left Arm Z Acceleration":
+                    chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.Series[0].BorderWidth = 3;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Maximum = 15;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Interval = 5;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Minimum = -15;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Title = "alAccZ";
+                    break;
+                case "Right Arm XZ Rotation":
+                    chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.Series[0].BorderWidth = 5;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Maximum = 90;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Interval = 30;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Minimum = -90;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Title = "arRotXZ";
+                    chart1.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(fRotLabel);
+                    chart1.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(bRotLabel);
+                    break;
+                case "Right Arm YZ Rotation":
+                    chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.Series[0].BorderWidth = 5;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Maximum = 90;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Interval = 30;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Minimum = -90;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Title = "arRotYZ";
+                    chart1.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(rRotLabel);
+                    chart1.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(lRotLabel);
+                    break;
+                case "Right Arm X Acceleration":
+                    chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.Series[0].BorderWidth = 3;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Maximum = 15;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Interval = 5;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Minimum = -15;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Title = "arAccX";
+                    chart1.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(rAccLabel);
+                    chart1.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(lAccLabel);
+                    break;
+                case "Right Arm Y Acceleration":
+                    chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.Series[0].BorderWidth = 3;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Maximum = 15;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Interval = 5;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Minimum = -15;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Title = "arAccY";
+                    break;
+                case "Right Arm Z Acceleration":
+                    chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
+                    chart1.Series[0].BorderWidth = 3;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Maximum = 15;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Interval = 5;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Minimum = -15;
+                    chart1.ChartAreas["ChartArea1"].AxisY.Title = "arAccZ";
+                    break;
+            }
         }
 
         void listenSense() {
@@ -116,19 +189,23 @@ namespace IMDAdataReceptionV2 {
                 else {
                     this.Invoke((MethodInvoker)delegate {
                         senseUDPmessageBox.Text = Encoding.ASCII.GetString(inputData);
-                        debugTextBox.Text = senseUDPmessageBox.Text.Substring(0,2); // Debug
                         if (senseUDPmessageBox.Text.Length == 50 && !senseUDPmessageBox.Text.Contains("NAN")) { // If a whole valid frame was received
                             sensor = senseUDPmessageBox.Text.Substring(0,2);
                             switch (sensor) {
                                 case "AL":
-                                    if (n < 11) { // First 10 received messages
-                                        alIndexValues.Add(n);
+                                    alRotXZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(6, 6)).ToString();
+                                    alRotYZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(16, 6)).ToString();
+                                    alAccXtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(25, 6)).ToString();
+                                    alAccYtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(34, 6)).ToString();
+                                    alAccZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(43, 6)).ToString();
+                                    /*if (alIndex < 11) { // First 10 received messages
+                                        alIndexValues.Add(alIndex);
                                         alXZdataValues.Add(Convert.ToDouble(senseUDPmessageBox.Text.Substring(6,6)));
                                         alYZdataValues.Add(Convert.ToDouble(senseUDPmessageBox.Text.Substring(16,6)));
                                         alXdataValues.Add(Convert.ToDouble(senseUDPmessageBox.Text.Substring(25, 6)));
                                         alYdataValues.Add(Convert.ToDouble(senseUDPmessageBox.Text.Substring(34, 6)));
                                         alZdataValues.Add(Convert.ToDouble(senseUDPmessageBox.Text.Substring(43, 6)));
-                                        n++;
+                                        alIndex++;
                                     }
                                     else {
                                         for (int i = 1; i < 10; i++) {
@@ -153,7 +230,47 @@ namespace IMDAdataReceptionV2 {
                                     alYZchart.Invalidate();
                                     alXchart.Invalidate();
                                     alYchart.Invalidate();
-                                    alZchart.Invalidate();
+                                    alZchart.Invalidate();*/
+                                    break;
+                                case "AR":
+                                    arRotXZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(6, 6)).ToString();
+                                    arRotYZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(16, 6)).ToString();
+                                    arAccXtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(25, 6)).ToString();
+                                    arAccYtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(34, 6)).ToString();
+                                    arAccZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(43, 6)).ToString();
+                                    /*if (arIndex < 11) { // First 10 received messages
+                                        arIndexValues.Add(arIndex);
+                                        arXZdataValues.Add(Convert.ToDouble(senseUDPmessageBox.Text.Substring(6, 6)));
+                                        arYZdataValues.Add(Convert.ToDouble(senseUDPmessageBox.Text.Substring(16, 6)));
+                                        arXdataValues.Add(Convert.ToDouble(senseUDPmessageBox.Text.Substring(25, 6)));
+                                        arYdataValues.Add(Convert.ToDouble(senseUDPmessageBox.Text.Substring(34, 6)));
+                                        arZdataValues.Add(Convert.ToDouble(senseUDPmessageBox.Text.Substring(43, 6)));
+                                        arIndex++;
+                                    }
+                                    else {
+                                        for (int i = 1; i < 10; i++) {
+                                            arXZdataValues[i - 1] = arXZdataValues[i];
+                                            arYZdataValues[i - 1] = arYZdataValues[i];
+                                            arXdataValues[i - 1] = arXdataValues[i];
+                                            arYdataValues[i - 1] = arYdataValues[i];
+                                            arZdataValues[i - 1] = arZdataValues[i];
+                                        }
+                                        arXZdataValues[9] = Convert.ToDouble(senseUDPmessageBox.Text.Substring(6, 6));
+                                        arYZdataValues[9] = Convert.ToDouble(senseUDPmessageBox.Text.Substring(16, 6));
+                                        arXdataValues[9] = Convert.ToDouble(senseUDPmessageBox.Text.Substring(25, 6));
+                                        arYdataValues[9] = Convert.ToDouble(senseUDPmessageBox.Text.Substring(34, 6));
+                                        arZdataValues[9] = Convert.ToDouble(senseUDPmessageBox.Text.Substring(34, 6));
+                                    }
+                                    arXZchart.Series["Series1"].Points.DataBindXY(arIndexValues, arXZdataValues);
+                                    arYZchart.Series["Series1"].Points.DataBindXY(arIndexValues, arYZdataValues);
+                                    arXchart.Series["Series1"].Points.DataBindXY(arIndexValues, arXdataValues);
+                                    arYchart.Series["Series1"].Points.DataBindXY(arIndexValues, arYdataValues);
+                                    arZchart.Series["Series1"].Points.DataBindXY(arIndexValues, arZdataValues);
+                                    arXZchart.Invalidate();
+                                    arYZchart.Invalidate();
+                                    arXchart.Invalidate();
+                                    arYchart.Invalidate();
+                                    arZchart.Invalidate();*/
                                     break;
                                 default:
                                     break;
@@ -177,21 +294,85 @@ namespace IMDAdataReceptionV2 {
                     }
                     chatHistoryArray[0] = animodUDPserverEP.Address.ToString() + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(inputData); // Insert the received information in the history
                     switch (Encoding.ASCII.GetString(inputData)) {
-                        case "x":
-                            byte[] outputXZData = Encoding.ASCII.GetBytes(alXZdataValues[9].ToString());
-                            animodUDPserver.Send(outputXZData, outputXZData.Length, animodUDPserverEP);
+                        case "alxz":
+                            byte[] outputALXZData = Encoding.ASCII.GetBytes(alRotXZtextbox.Text);
+                            animodUDPserver.Send(outputALXZData, outputALXZData.Length, animodUDPserverEP);
                             for (int i = 7; i >= 1; i--) {
                                 chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position
                             }
-                            chatHistoryArray[0] = serverAddress + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(outputXZData); // Insert the sent data in the history
+                            chatHistoryArray[0] = serverAddress + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(outputALXZData); // Insert the sent data in the history
                             break;
-                        case "y":
-                            byte[] outputYZData = Encoding.ASCII.GetBytes(alYZdataValues[9].ToString());
-                            animodUDPserver.Send(outputYZData, outputYZData.Length, animodUDPserverEP); // Send data
+                        case "alyz":
+                            byte[] outputALYZData = Encoding.ASCII.GetBytes(alRotYZtextbox.Text);
+                            animodUDPserver.Send(outputALYZData, outputALYZData.Length, animodUDPserverEP);
                             for (int i = 7; i >= 1; i--) {
                                 chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position
                             }
-                            chatHistoryArray[0] = serverAddress + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(outputYZData); // Insert the sent data in the history
+                            chatHistoryArray[0] = serverAddress + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(outputALYZData); // Insert the sent data in the history
+                            break;
+                        case "alx":
+                            byte[] outputALXData = Encoding.ASCII.GetBytes(alAccXtextbox.Text);
+                            animodUDPserver.Send(outputALXData, outputALXData.Length, animodUDPserverEP);
+                            for (int i = 7; i >= 1; i--) {
+                                chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position
+                            }
+                            chatHistoryArray[0] = serverAddress + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(outputALXData); // Insert the sent data in the history
+                            break;
+                        case "aly":
+                            byte[] outputALYData = Encoding.ASCII.GetBytes(alAccYtextbox.Text);
+                            animodUDPserver.Send(outputALYData, outputALYData.Length, animodUDPserverEP);
+                            for (int i = 7; i >= 1; i--) {
+                                chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position
+                            }
+                            chatHistoryArray[0] = serverAddress + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(outputALYData); // Insert the sent data in the history
+                            break;
+                        case "alz":
+                            byte[] outputALZData = Encoding.ASCII.GetBytes(alAccZtextbox.Text);
+                            animodUDPserver.Send(outputALZData, outputALZData.Length, animodUDPserverEP);
+                            for (int i = 7; i >= 1; i--) {
+                                chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position
+                            }
+                            chatHistoryArray[0] = serverAddress + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(outputALZData); // Insert the sent data in the history
+                            break;
+                        case "arxz":
+                            byte[] outputARXZData = Encoding.ASCII.GetBytes(arRotXZtextbox.Text);
+                            animodUDPserver.Send(outputARXZData, outputARXZData.Length, animodUDPserverEP); // Send data
+                            for (int i = 7; i >= 1; i--) {
+                                chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position
+                            }
+                            chatHistoryArray[0] = serverAddress + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(outputARXZData); // Insert the sent data in the history
+                            break;
+                        case "aryz":
+                            byte[] outputARYZData = Encoding.ASCII.GetBytes(arRotYZtextbox.Text);
+                            animodUDPserver.Send(outputARYZData, outputARYZData.Length, animodUDPserverEP); // Send data
+                            for (int i = 7; i >= 1; i--) {
+                                chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position
+                            }
+                            chatHistoryArray[0] = serverAddress + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(outputARYZData); // Insert the sent data in the history
+                            break;
+                        case "arx":
+                            byte[] outputARXData = Encoding.ASCII.GetBytes(arAccXtextbox.Text);
+                            animodUDPserver.Send(outputARXData, outputARXData.Length, animodUDPserverEP);
+                            for (int i = 7; i >= 1; i--) {
+                                chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position
+                            }
+                            chatHistoryArray[0] = serverAddress + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(outputARXData); // Insert the sent data in the history
+                            break;
+                        case "ary":
+                            byte[] outputARYData = Encoding.ASCII.GetBytes(arAccYtextbox.Text);
+                            animodUDPserver.Send(outputARYData, outputARYData.Length, animodUDPserverEP);
+                            for (int i = 7; i >= 1; i--) {
+                                chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position
+                            }
+                            chatHistoryArray[0] = serverAddress + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(outputARYData); // Insert the sent data in the history
+                            break;
+                        case "arz":
+                            byte[] outputARZData = Encoding.ASCII.GetBytes(arAccZtextbox.Text);
+                            animodUDPserver.Send(outputARZData, outputARZData.Length, animodUDPserverEP);
+                            for (int i = 7; i >= 1; i--) {
+                                chatHistoryArray[i] = chatHistoryArray[i - 1]; // Move the history up one position
+                            }
+                            chatHistoryArray[0] = serverAddress + " at " + DateTime.Now.ToString() + ": " + Encoding.ASCII.GetString(outputARZData); // Insert the sent data in the history
                             break;
                         default:
                             break;

@@ -24,24 +24,21 @@ namespace IMDAdataReceptionV2 {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.alYZchart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.alXZchart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.alAccZtextbox = new System.Windows.Forms.TextBox();
+            this.alAccYtextbox = new System.Windows.Forms.TextBox();
+            this.alAccXtextbox = new System.Windows.Forms.TextBox();
+            this.alRotYZtextbox = new System.Windows.Forms.TextBox();
+            this.alRotXZtextbox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.senseUDPstatusIndicator = new System.Windows.Forms.ProgressBar();
             this.senseUDPpowerButton = new System.Windows.Forms.Button();
@@ -61,74 +58,138 @@ namespace IMDAdataReceptionV2 {
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.debugTextBox = new System.Windows.Forms.TextBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.alXchart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.alYchart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.alZchart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.arAccZtextbox = new System.Windows.Forms.TextBox();
+            this.arAccYtextbox = new System.Windows.Forms.TextBox();
+            this.arAccXtextbox = new System.Windows.Forms.TextBox();
+            this.arRotYZtextbox = new System.Windows.Forms.TextBox();
+            this.arRotXZtextbox = new System.Windows.Forms.TextBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.alYZchart)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.alXZchart)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.alXchart)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.alYchart)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.alZchart)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.alZchart);
-            this.groupBox2.Controls.Add(this.alYchart);
-            this.groupBox2.Controls.Add(this.alXchart);
-            this.groupBox2.Controls.Add(this.alYZchart);
-            this.groupBox2.Controls.Add(this.alXZchart);
+            this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.alAccZtextbox);
+            this.groupBox2.Controls.Add(this.alAccYtextbox);
+            this.groupBox2.Controls.Add(this.alAccXtextbox);
+            this.groupBox2.Controls.Add(this.alRotYZtextbox);
+            this.groupBox2.Controls.Add(this.alRotXZtextbox);
             this.groupBox2.Location = new System.Drawing.Point(16, 51);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(504, 481);
+            this.groupBox2.Size = new System.Drawing.Size(172, 174);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Left Arm";
             // 
-            // alYZchart
+            // label13
             // 
-            chartArea4.Name = "ChartArea1";
-            this.alYZchart.ChartAreas.Add(chartArea4);
-            this.alYZchart.Location = new System.Drawing.Point(12, 254);
-            this.alYZchart.Margin = new System.Windows.Forms.Padding(4);
-            this.alYZchart.Name = "alYZchart";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Name = "Series1";
-            this.alYZchart.Series.Add(series4);
-            this.alYZchart.Size = new System.Drawing.Size(238, 219);
-            this.alYZchart.TabIndex = 11;
-            this.alYZchart.Text = "chart2";
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(7, 142);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(39, 17);
+            this.label13.TabIndex = 9;
+            this.label13.Text = "accZ";
             // 
-            // alXZchart
+            // label12
             // 
-            chartArea5.Name = "ChartArea1";
-            this.alXZchart.ChartAreas.Add(chartArea5);
-            this.alXZchart.Location = new System.Drawing.Point(12, 23);
-            this.alXZchart.Margin = new System.Windows.Forms.Padding(4);
-            this.alXZchart.Name = "alXZchart";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series5.Name = "Series1";
-            this.alXZchart.Series.Add(series5);
-            this.alXZchart.Size = new System.Drawing.Size(238, 219);
-            this.alXZchart.TabIndex = 10;
-            this.alXZchart.Text = "chart1";
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(7, 116);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(39, 17);
+            this.label12.TabIndex = 8;
+            this.label12.Text = "accY";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(7, 86);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(39, 17);
+            this.label11.TabIndex = 7;
+            this.label11.Text = "accX";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(7, 58);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(43, 17);
+            this.label10.TabIndex = 6;
+            this.label10.Text = "rotYZ";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(7, 30);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(43, 17);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "rotXZ";
+            // 
+            // alAccZtextbox
+            // 
+            this.alAccZtextbox.Enabled = false;
+            this.alAccZtextbox.Location = new System.Drawing.Point(56, 139);
+            this.alAccZtextbox.Name = "alAccZtextbox";
+            this.alAccZtextbox.Size = new System.Drawing.Size(100, 22);
+            this.alAccZtextbox.TabIndex = 4;
+            // 
+            // alAccYtextbox
+            // 
+            this.alAccYtextbox.Enabled = false;
+            this.alAccYtextbox.Location = new System.Drawing.Point(56, 111);
+            this.alAccYtextbox.Name = "alAccYtextbox";
+            this.alAccYtextbox.Size = new System.Drawing.Size(100, 22);
+            this.alAccYtextbox.TabIndex = 3;
+            // 
+            // alAccXtextbox
+            // 
+            this.alAccXtextbox.Enabled = false;
+            this.alAccXtextbox.Location = new System.Drawing.Point(56, 83);
+            this.alAccXtextbox.Name = "alAccXtextbox";
+            this.alAccXtextbox.Size = new System.Drawing.Size(100, 22);
+            this.alAccXtextbox.TabIndex = 2;
+            // 
+            // alRotYZtextbox
+            // 
+            this.alRotYZtextbox.Enabled = false;
+            this.alRotYZtextbox.Location = new System.Drawing.Point(56, 55);
+            this.alRotYZtextbox.Name = "alRotYZtextbox";
+            this.alRotYZtextbox.Size = new System.Drawing.Size(100, 22);
+            this.alRotYZtextbox.TabIndex = 1;
+            // 
+            // alRotXZtextbox
+            // 
+            this.alRotXZtextbox.Enabled = false;
+            this.alRotXZtextbox.Location = new System.Drawing.Point(56, 27);
+            this.alRotXZtextbox.Name = "alRotXZtextbox";
+            this.alRotXZtextbox.Size = new System.Drawing.Size(100, 22);
+            this.alRotXZtextbox.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(710, 546);
+            this.label2.Location = new System.Drawing.Point(518, 553);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(48, 17);
@@ -137,7 +198,7 @@ namespace IMDAdataReceptionV2 {
             // 
             // senseUDPstatusIndicator
             // 
-            this.senseUDPstatusIndicator.Location = new System.Drawing.Point(768, 540);
+            this.senseUDPstatusIndicator.Location = new System.Drawing.Point(576, 547);
             this.senseUDPstatusIndicator.Margin = new System.Windows.Forms.Padding(4);
             this.senseUDPstatusIndicator.Name = "senseUDPstatusIndicator";
             this.senseUDPstatusIndicator.Size = new System.Drawing.Size(133, 28);
@@ -145,7 +206,7 @@ namespace IMDAdataReceptionV2 {
             // 
             // senseUDPpowerButton
             // 
-            this.senseUDPpowerButton.Location = new System.Drawing.Point(1369, 10);
+            this.senseUDPpowerButton.Location = new System.Drawing.Point(961, 13);
             this.senseUDPpowerButton.Margin = new System.Windows.Forms.Padding(4);
             this.senseUDPpowerButton.Name = "senseUDPpowerButton";
             this.senseUDPpowerButton.Size = new System.Drawing.Size(211, 28);
@@ -175,7 +236,7 @@ namespace IMDAdataReceptionV2 {
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(501, 16);
+            this.label4.Location = new System.Drawing.Point(273, 13);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(99, 17);
@@ -185,7 +246,7 @@ namespace IMDAdataReceptionV2 {
             // senseUDPmessageBox
             // 
             this.senseUDPmessageBox.Enabled = false;
-            this.senseUDPmessageBox.Location = new System.Drawing.Point(608, 13);
+            this.senseUDPmessageBox.Location = new System.Drawing.Point(380, 10);
             this.senseUDPmessageBox.Margin = new System.Windows.Forms.Padding(4);
             this.senseUDPmessageBox.Multiline = true;
             this.senseUDPmessageBox.Name = "senseUDPmessageBox";
@@ -202,7 +263,7 @@ namespace IMDAdataReceptionV2 {
             this.groupBox1.Controls.Add(this.animodUDPchat);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.animodUDPpowerButton);
-            this.groupBox1.Location = new System.Drawing.Point(547, 51);
+            this.groupBox1.Location = new System.Drawing.Point(668, 51);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
@@ -282,7 +343,7 @@ namespace IMDAdataReceptionV2 {
             // serverAddressBox
             // 
             this.serverAddressBox.Enabled = false;
-            this.serverAddressBox.Location = new System.Drawing.Point(1371, 540);
+            this.serverAddressBox.Location = new System.Drawing.Point(963, 550);
             this.serverAddressBox.Margin = new System.Windows.Forms.Padding(4);
             this.serverAddressBox.Name = "serverAddressBox";
             this.serverAddressBox.Size = new System.Drawing.Size(209, 22);
@@ -291,7 +352,7 @@ namespace IMDAdataReceptionV2 {
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(1287, 543);
+            this.label6.Location = new System.Drawing.Point(879, 553);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(76, 17);
@@ -301,7 +362,7 @@ namespace IMDAdataReceptionV2 {
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(18, 540);
+            this.label8.Location = new System.Drawing.Point(28, 553);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(50, 17);
             this.label8.TabIndex = 12;
@@ -310,105 +371,184 @@ namespace IMDAdataReceptionV2 {
             // debugTextBox
             // 
             this.debugTextBox.Enabled = false;
-            this.debugTextBox.Location = new System.Drawing.Point(75, 540);
+            this.debugTextBox.Location = new System.Drawing.Point(85, 548);
             this.debugTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.debugTextBox.Name = "debugTextBox";
             this.debugTextBox.Size = new System.Drawing.Size(209, 22);
             this.debugTextBox.TabIndex = 13;
             // 
+            // chart1
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(10, 66);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(450, 399);
+            this.chart1.TabIndex = 18;
+            this.chart1.Text = "chart1";
+            // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.chart1);
-            this.groupBox3.Controls.Add(this.chart2);
-            this.groupBox3.Location = new System.Drawing.Point(1076, 51);
+            this.groupBox3.Controls.Add(this.label14);
+            this.groupBox3.Controls.Add(this.label15);
+            this.groupBox3.Controls.Add(this.label16);
+            this.groupBox3.Controls.Add(this.label17);
+            this.groupBox3.Controls.Add(this.label18);
+            this.groupBox3.Controls.Add(this.arAccZtextbox);
+            this.groupBox3.Controls.Add(this.arAccYtextbox);
+            this.groupBox3.Controls.Add(this.arAccXtextbox);
+            this.groupBox3.Controls.Add(this.arRotYZtextbox);
+            this.groupBox3.Controls.Add(this.arRotXZtextbox);
+            this.groupBox3.Location = new System.Drawing.Point(16, 242);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(504, 481);
-            this.groupBox3.TabIndex = 17;
+            this.groupBox3.Size = new System.Drawing.Size(172, 174);
+            this.groupBox3.TabIndex = 15;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Right Arm";
             // 
-            // chart1
+            // label14
             // 
-            chartArea6.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea6);
-            this.chart1.Location = new System.Drawing.Point(10, 297);
-            this.chart1.Margin = new System.Windows.Forms.Padding(4);
-            this.chart1.Name = "chart1";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series6.Name = "Series1";
-            this.chart1.Series.Add(series6);
-            this.chart1.Size = new System.Drawing.Size(488, 137);
-            this.chart1.TabIndex = 11;
-            this.chart1.Text = "chart2";
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(7, 142);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(39, 17);
+            this.label14.TabIndex = 9;
+            this.label14.Text = "accZ";
             // 
-            // chart2
+            // label15
             // 
-            chartArea7.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea7);
-            this.chart2.Location = new System.Drawing.Point(10, 154);
-            this.chart2.Margin = new System.Windows.Forms.Padding(4);
-            this.chart2.Name = "chart2";
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series7.Name = "Series1";
-            this.chart2.Series.Add(series7);
-            this.chart2.Size = new System.Drawing.Size(488, 137);
-            this.chart2.TabIndex = 10;
-            this.chart2.Text = "chart1";
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(7, 116);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(39, 17);
+            this.label15.TabIndex = 8;
+            this.label15.Text = "accY";
             // 
-            // alXchart
+            // label16
             // 
-            chartArea3.Name = "ChartArea1";
-            this.alXchart.ChartAreas.Add(chartArea3);
-            this.alXchart.Location = new System.Drawing.Point(258, 23);
-            this.alXchart.Margin = new System.Windows.Forms.Padding(4);
-            this.alXchart.Name = "alXchart";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Name = "Series1";
-            this.alXchart.Series.Add(series3);
-            this.alXchart.Size = new System.Drawing.Size(238, 134);
-            this.alXchart.TabIndex = 12;
-            this.alXchart.Text = "chart1";
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(7, 86);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(39, 17);
+            this.label16.TabIndex = 7;
+            this.label16.Text = "accX";
             // 
-            // alYchart
+            // label17
             // 
-            chartArea2.Name = "ChartArea1";
-            this.alYchart.ChartAreas.Add(chartArea2);
-            this.alYchart.Location = new System.Drawing.Point(258, 180);
-            this.alYchart.Margin = new System.Windows.Forms.Padding(4);
-            this.alYchart.Name = "alYchart";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Name = "Series1";
-            this.alYchart.Series.Add(series2);
-            this.alYchart.Size = new System.Drawing.Size(238, 134);
-            this.alYchart.TabIndex = 13;
-            this.alYchart.Text = "chart1";
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(7, 58);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(43, 17);
+            this.label17.TabIndex = 6;
+            this.label17.Text = "rotYZ";
             // 
-            // alZchart
+            // label18
             // 
-            chartArea1.Name = "ChartArea1";
-            this.alZchart.ChartAreas.Add(chartArea1);
-            this.alZchart.Location = new System.Drawing.Point(258, 336);
-            this.alZchart.Margin = new System.Windows.Forms.Padding(4);
-            this.alZchart.Name = "alZchart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Name = "Series1";
-            this.alZchart.Series.Add(series1);
-            this.alZchart.Size = new System.Drawing.Size(238, 134);
-            this.alZchart.TabIndex = 14;
-            this.alZchart.Text = "chart1";
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(7, 30);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(43, 17);
+            this.label18.TabIndex = 5;
+            this.label18.Text = "rotXZ";
+            // 
+            // arAccZtextbox
+            // 
+            this.arAccZtextbox.Enabled = false;
+            this.arAccZtextbox.Location = new System.Drawing.Point(56, 139);
+            this.arAccZtextbox.Name = "arAccZtextbox";
+            this.arAccZtextbox.Size = new System.Drawing.Size(100, 22);
+            this.arAccZtextbox.TabIndex = 4;
+            // 
+            // arAccYtextbox
+            // 
+            this.arAccYtextbox.Enabled = false;
+            this.arAccYtextbox.Location = new System.Drawing.Point(56, 111);
+            this.arAccYtextbox.Name = "arAccYtextbox";
+            this.arAccYtextbox.Size = new System.Drawing.Size(100, 22);
+            this.arAccYtextbox.TabIndex = 3;
+            // 
+            // arAccXtextbox
+            // 
+            this.arAccXtextbox.Enabled = false;
+            this.arAccXtextbox.Location = new System.Drawing.Point(56, 83);
+            this.arAccXtextbox.Name = "arAccXtextbox";
+            this.arAccXtextbox.Size = new System.Drawing.Size(100, 22);
+            this.arAccXtextbox.TabIndex = 2;
+            // 
+            // arRotYZtextbox
+            // 
+            this.arRotYZtextbox.Enabled = false;
+            this.arRotYZtextbox.Location = new System.Drawing.Point(56, 55);
+            this.arRotYZtextbox.Name = "arRotYZtextbox";
+            this.arRotYZtextbox.Size = new System.Drawing.Size(100, 22);
+            this.arRotYZtextbox.TabIndex = 1;
+            // 
+            // arRotXZtextbox
+            // 
+            this.arRotXZtextbox.Enabled = false;
+            this.arRotXZtextbox.Location = new System.Drawing.Point(56, 27);
+            this.arRotXZtextbox.Name = "arRotXZtextbox";
+            this.arRotXZtextbox.Size = new System.Drawing.Size(100, 22);
+            this.arRotXZtextbox.TabIndex = 0;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.AllowDrop = true;
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "None",
+            "Left Arm XZ Rotation",
+            "Left Arm YZ Rotation",
+            "Left Arm X Acceleration",
+            "Left Arm Y Acceleration",
+            "Left Arm Z Acceleration",
+            "Right Arm XZ Rotation",
+            "Right Arm YZ Rotation",
+            "Right Arm X Acceleration",
+            "Right Arm Y Acceleration",
+            "Right Arm Z Acceleration"});
+            this.comboBox1.Location = new System.Drawing.Point(121, 29);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(178, 24);
+            this.comboBox1.TabIndex = 19;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label19);
+            this.groupBox4.Controls.Add(this.comboBox1);
+            this.groupBox4.Controls.Add(this.chart1);
+            this.groupBox4.Location = new System.Drawing.Point(195, 51);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(466, 476);
+            this.groupBox4.TabIndex = 21;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Data visualization";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(7, 32);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(108, 17);
+            this.label19.TabIndex = 20;
+            this.label19.Text = "Displayed value";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1602, 574);
+            this.ClientSize = new System.Drawing.Size(1185, 588);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.senseUDPpowerButton);
             this.Controls.Add(this.label2);
@@ -428,16 +568,14 @@ namespace IMDAdataReceptionV2 {
             this.Name = "Form1";
             this.Text = "ComLinK";
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.alYZchart)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.alXZchart)).EndInit();
+            this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.alXchart)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.alYchart)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.alZchart)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -446,7 +584,6 @@ namespace IMDAdataReceptionV2 {
         #endregion
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox senseUDPmessageBox;
-        private System.Windows.Forms.DataVisualization.Charting.Chart alXZchart;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label3;
@@ -458,7 +595,6 @@ namespace IMDAdataReceptionV2 {
         private System.Windows.Forms.TextBox serverAddressBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ProgressBar animodUDPstatusIndicator;
-        private System.Windows.Forms.DataVisualization.Charting.Chart alYZchart;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ProgressBar senseUDPstatusIndicator;
         private System.Windows.Forms.Button senseUDPpowerButton;
@@ -466,12 +602,31 @@ namespace IMDAdataReceptionV2 {
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox debugTextBox;
-        private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
-        private System.Windows.Forms.DataVisualization.Charting.Chart alZchart;
-        private System.Windows.Forms.DataVisualization.Charting.Chart alYchart;
-        private System.Windows.Forms.DataVisualization.Charting.Chart alXchart;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox alAccZtextbox;
+        private System.Windows.Forms.TextBox alAccYtextbox;
+        private System.Windows.Forms.TextBox alAccXtextbox;
+        private System.Windows.Forms.TextBox alRotYZtextbox;
+        private System.Windows.Forms.TextBox alRotXZtextbox;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox arAccZtextbox;
+        private System.Windows.Forms.TextBox arAccYtextbox;
+        private System.Windows.Forms.TextBox arAccXtextbox;
+        private System.Windows.Forms.TextBox arRotYZtextbox;
+        private System.Windows.Forms.TextBox arRotXZtextbox;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label19;
     }
 }
 
