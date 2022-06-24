@@ -73,11 +73,47 @@ namespace IMDAdataReceptionV2 {
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label19 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.frAccZtextbox = new System.Windows.Forms.TextBox();
+            this.frAccYtextbox = new System.Windows.Forms.TextBox();
+            this.frAccXtextbox = new System.Windows.Forms.TextBox();
+            this.frRotYZtextbox = new System.Windows.Forms.TextBox();
+            this.frRotXZtextbox = new System.Windows.Forms.TextBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.flAccZtextbox = new System.Windows.Forms.TextBox();
+            this.flAccYtextbox = new System.Windows.Forms.TextBox();
+            this.flAccXtextbox = new System.Windows.Forms.TextBox();
+            this.flRotYZtextbox = new System.Windows.Forms.TextBox();
+            this.flRotXZtextbox = new System.Windows.Forms.TextBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.ccRotYZtextbox = new System.Windows.Forms.TextBox();
+            this.ccAccZtextbox = new System.Windows.Forms.TextBox();
+            this.ccAccYtextbox = new System.Windows.Forms.TextBox();
+            this.ccRotXZtextbox = new System.Windows.Forms.TextBox();
+            this.ccAccXtextbox = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -106,7 +142,7 @@ namespace IMDAdataReceptionV2 {
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(7, 142);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(39, 17);
+            this.label13.Size = new System.Drawing.Size(37, 16);
             this.label13.TabIndex = 9;
             this.label13.Text = "accZ";
             // 
@@ -115,7 +151,7 @@ namespace IMDAdataReceptionV2 {
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(7, 116);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(39, 17);
+            this.label12.Size = new System.Drawing.Size(38, 16);
             this.label12.TabIndex = 8;
             this.label12.Text = "accY";
             // 
@@ -124,7 +160,7 @@ namespace IMDAdataReceptionV2 {
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(7, 86);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(39, 17);
+            this.label11.Size = new System.Drawing.Size(37, 16);
             this.label11.TabIndex = 7;
             this.label11.Text = "accX";
             // 
@@ -133,7 +169,7 @@ namespace IMDAdataReceptionV2 {
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(7, 58);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(43, 17);
+            this.label10.Size = new System.Drawing.Size(39, 16);
             this.label10.TabIndex = 6;
             this.label10.Text = "rotYZ";
             // 
@@ -142,7 +178,7 @@ namespace IMDAdataReceptionV2 {
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(7, 30);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(43, 17);
+            this.label9.Size = new System.Drawing.Size(38, 16);
             this.label9.TabIndex = 5;
             this.label9.Text = "rotXZ";
             // 
@@ -189,16 +225,16 @@ namespace IMDAdataReceptionV2 {
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(518, 553);
+            this.label2.Location = new System.Drawing.Point(588, 551);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 17);
+            this.label2.Size = new System.Drawing.Size(44, 16);
             this.label2.TabIndex = 16;
             this.label2.Text = "Status";
             // 
             // senseUDPstatusIndicator
             // 
-            this.senseUDPstatusIndicator.Location = new System.Drawing.Point(576, 547);
+            this.senseUDPstatusIndicator.Location = new System.Drawing.Point(640, 544);
             this.senseUDPstatusIndicator.Margin = new System.Windows.Forms.Padding(4);
             this.senseUDPstatusIndicator.Name = "senseUDPstatusIndicator";
             this.senseUDPstatusIndicator.Size = new System.Drawing.Size(133, 28);
@@ -206,7 +242,7 @@ namespace IMDAdataReceptionV2 {
             // 
             // senseUDPpowerButton
             // 
-            this.senseUDPpowerButton.Location = new System.Drawing.Point(961, 13);
+            this.senseUDPpowerButton.Location = new System.Drawing.Point(1151, 13);
             this.senseUDPpowerButton.Margin = new System.Windows.Forms.Padding(4);
             this.senseUDPpowerButton.Name = "senseUDPpowerButton";
             this.senseUDPpowerButton.Size = new System.Drawing.Size(211, 28);
@@ -229,24 +265,24 @@ namespace IMDAdataReceptionV2 {
             this.label1.Location = new System.Drawing.Point(18, 16);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(34, 17);
+            this.label1.Size = new System.Drawing.Size(31, 16);
             this.label1.TabIndex = 12;
             this.label1.Text = "Port";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(273, 13);
+            this.label4.Location = new System.Drawing.Point(356, 16);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(99, 17);
+            this.label4.Size = new System.Drawing.Size(96, 16);
             this.label4.TabIndex = 8;
             this.label4.Text = "Received data";
             // 
             // senseUDPmessageBox
             // 
             this.senseUDPmessageBox.Enabled = false;
-            this.senseUDPmessageBox.Location = new System.Drawing.Point(380, 10);
+            this.senseUDPmessageBox.Location = new System.Drawing.Point(460, 13);
             this.senseUDPmessageBox.Margin = new System.Windows.Forms.Padding(4);
             this.senseUDPmessageBox.Multiline = true;
             this.senseUDPmessageBox.Name = "senseUDPmessageBox";
@@ -263,7 +299,7 @@ namespace IMDAdataReceptionV2 {
             this.groupBox1.Controls.Add(this.animodUDPchat);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.animodUDPpowerButton);
-            this.groupBox1.Location = new System.Drawing.Point(668, 51);
+            this.groupBox1.Location = new System.Drawing.Point(858, 51);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
@@ -278,7 +314,7 @@ namespace IMDAdataReceptionV2 {
             this.label7.Location = new System.Drawing.Point(306, 448);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(48, 17);
+            this.label7.Size = new System.Drawing.Size(44, 16);
             this.label7.TabIndex = 12;
             this.label7.Text = "Status";
             // 
@@ -304,7 +340,7 @@ namespace IMDAdataReceptionV2 {
             this.label3.Location = new System.Drawing.Point(9, 85);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(111, 17);
+            this.label3.Size = new System.Drawing.Size(106, 16);
             this.label3.TabIndex = 8;
             this.label3.Text = "Message history";
             // 
@@ -325,7 +361,7 @@ namespace IMDAdataReceptionV2 {
             this.label5.Location = new System.Drawing.Point(7, 32);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(34, 17);
+            this.label5.Size = new System.Drawing.Size(31, 16);
             this.label5.TabIndex = 8;
             this.label5.Text = "Port";
             // 
@@ -343,7 +379,7 @@ namespace IMDAdataReceptionV2 {
             // serverAddressBox
             // 
             this.serverAddressBox.Enabled = false;
-            this.serverAddressBox.Location = new System.Drawing.Point(963, 550);
+            this.serverAddressBox.Location = new System.Drawing.Point(1153, 550);
             this.serverAddressBox.Margin = new System.Windows.Forms.Padding(4);
             this.serverAddressBox.Name = "serverAddressBox";
             this.serverAddressBox.Size = new System.Drawing.Size(209, 22);
@@ -352,10 +388,10 @@ namespace IMDAdataReceptionV2 {
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(879, 553);
+            this.label6.Location = new System.Drawing.Point(1069, 553);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(76, 17);
+            this.label6.Size = new System.Drawing.Size(73, 16);
             this.label6.TabIndex = 7;
             this.label6.Text = "IP Address";
             // 
@@ -364,7 +400,7 @@ namespace IMDAdataReceptionV2 {
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(28, 553);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(50, 17);
+            this.label8.Size = new System.Drawing.Size(48, 16);
             this.label8.TabIndex = 12;
             this.label8.Text = "Debug";
             // 
@@ -405,7 +441,7 @@ namespace IMDAdataReceptionV2 {
             this.groupBox3.Controls.Add(this.arAccXtextbox);
             this.groupBox3.Controls.Add(this.arRotYZtextbox);
             this.groupBox3.Controls.Add(this.arRotXZtextbox);
-            this.groupBox3.Location = new System.Drawing.Point(16, 242);
+            this.groupBox3.Location = new System.Drawing.Point(206, 51);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
@@ -419,7 +455,7 @@ namespace IMDAdataReceptionV2 {
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(7, 142);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(39, 17);
+            this.label14.Size = new System.Drawing.Size(37, 16);
             this.label14.TabIndex = 9;
             this.label14.Text = "accZ";
             // 
@@ -428,7 +464,7 @@ namespace IMDAdataReceptionV2 {
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(7, 116);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(39, 17);
+            this.label15.Size = new System.Drawing.Size(38, 16);
             this.label15.TabIndex = 8;
             this.label15.Text = "accY";
             // 
@@ -437,7 +473,7 @@ namespace IMDAdataReceptionV2 {
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(7, 86);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(39, 17);
+            this.label16.Size = new System.Drawing.Size(37, 16);
             this.label16.TabIndex = 7;
             this.label16.Text = "accX";
             // 
@@ -446,7 +482,7 @@ namespace IMDAdataReceptionV2 {
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(7, 58);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(43, 17);
+            this.label17.Size = new System.Drawing.Size(39, 16);
             this.label17.TabIndex = 6;
             this.label17.Text = "rotYZ";
             // 
@@ -455,7 +491,7 @@ namespace IMDAdataReceptionV2 {
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(7, 30);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(43, 17);
+            this.label18.Size = new System.Drawing.Size(38, 16);
             this.label18.TabIndex = 5;
             this.label18.Text = "rotXZ";
             // 
@@ -515,7 +551,22 @@ namespace IMDAdataReceptionV2 {
             "Right Arm YZ Rotation",
             "Right Arm X Acceleration",
             "Right Arm Y Acceleration",
-            "Right Arm Z Acceleration"});
+            "Right Arm Z Acceleration",
+            "Torso XZ Rotation",
+            "Torso YZ Rotation",
+            "Torso X Acceleration",
+            "Torso Y Acceleration",
+            "Torso Z Acceleration",
+            "Left Foot XZ Rotation",
+            "Left Foot YZ Rotation",
+            "Left Foot X Acceleration",
+            "Left Foot Y Acceleration",
+            "Left Foot Z Acceleration",
+            "Right Foot XZ Rotation",
+            "Right Foot YZ Rotation",
+            "Right Foot X Acceleration",
+            "Right Foot Y Acceleration",
+            "Right Foot Z Acceleration"});
             this.comboBox1.Location = new System.Drawing.Point(121, 29);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(178, 24);
@@ -527,9 +578,9 @@ namespace IMDAdataReceptionV2 {
             this.groupBox4.Controls.Add(this.label19);
             this.groupBox4.Controls.Add(this.comboBox1);
             this.groupBox4.Controls.Add(this.chart1);
-            this.groupBox4.Location = new System.Drawing.Point(195, 51);
+            this.groupBox4.Location = new System.Drawing.Point(385, 51);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(466, 476);
+            this.groupBox4.Size = new System.Drawing.Size(466, 481);
             this.groupBox4.TabIndex = 21;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Data visualization";
@@ -539,15 +590,336 @@ namespace IMDAdataReceptionV2 {
             this.label19.AutoSize = true;
             this.label19.Location = new System.Drawing.Point(7, 32);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(108, 17);
+            this.label19.Size = new System.Drawing.Size(105, 16);
             this.label19.TabIndex = 20;
             this.label19.Text = "Displayed value";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label20);
+            this.groupBox5.Controls.Add(this.label21);
+            this.groupBox5.Controls.Add(this.label22);
+            this.groupBox5.Controls.Add(this.label23);
+            this.groupBox5.Controls.Add(this.label24);
+            this.groupBox5.Controls.Add(this.frAccZtextbox);
+            this.groupBox5.Controls.Add(this.frAccYtextbox);
+            this.groupBox5.Controls.Add(this.frAccXtextbox);
+            this.groupBox5.Controls.Add(this.frRotYZtextbox);
+            this.groupBox5.Controls.Add(this.frRotXZtextbox);
+            this.groupBox5.Location = new System.Drawing.Point(206, 358);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox5.Size = new System.Drawing.Size(172, 174);
+            this.groupBox5.TabIndex = 23;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Right Foot";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(7, 142);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(37, 16);
+            this.label20.TabIndex = 9;
+            this.label20.Text = "accZ";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(7, 116);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(38, 16);
+            this.label21.TabIndex = 8;
+            this.label21.Text = "accY";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(7, 86);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(37, 16);
+            this.label22.TabIndex = 7;
+            this.label22.Text = "accX";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(7, 58);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(39, 16);
+            this.label23.TabIndex = 6;
+            this.label23.Text = "rotYZ";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(7, 30);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(38, 16);
+            this.label24.TabIndex = 5;
+            this.label24.Text = "rotXZ";
+            // 
+            // frAccZtextbox
+            // 
+            this.frAccZtextbox.Enabled = false;
+            this.frAccZtextbox.Location = new System.Drawing.Point(56, 139);
+            this.frAccZtextbox.Name = "frAccZtextbox";
+            this.frAccZtextbox.Size = new System.Drawing.Size(100, 22);
+            this.frAccZtextbox.TabIndex = 4;
+            // 
+            // frAccYtextbox
+            // 
+            this.frAccYtextbox.Enabled = false;
+            this.frAccYtextbox.Location = new System.Drawing.Point(56, 111);
+            this.frAccYtextbox.Name = "frAccYtextbox";
+            this.frAccYtextbox.Size = new System.Drawing.Size(100, 22);
+            this.frAccYtextbox.TabIndex = 3;
+            // 
+            // frAccXtextbox
+            // 
+            this.frAccXtextbox.Enabled = false;
+            this.frAccXtextbox.Location = new System.Drawing.Point(56, 83);
+            this.frAccXtextbox.Name = "frAccXtextbox";
+            this.frAccXtextbox.Size = new System.Drawing.Size(100, 22);
+            this.frAccXtextbox.TabIndex = 2;
+            // 
+            // frRotYZtextbox
+            // 
+            this.frRotYZtextbox.Enabled = false;
+            this.frRotYZtextbox.Location = new System.Drawing.Point(56, 55);
+            this.frRotYZtextbox.Name = "frRotYZtextbox";
+            this.frRotYZtextbox.Size = new System.Drawing.Size(100, 22);
+            this.frRotYZtextbox.TabIndex = 1;
+            // 
+            // frRotXZtextbox
+            // 
+            this.frRotXZtextbox.Enabled = false;
+            this.frRotXZtextbox.Location = new System.Drawing.Point(56, 27);
+            this.frRotXZtextbox.Name = "frRotXZtextbox";
+            this.frRotXZtextbox.Size = new System.Drawing.Size(100, 22);
+            this.frRotXZtextbox.TabIndex = 0;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.label25);
+            this.groupBox6.Controls.Add(this.label26);
+            this.groupBox6.Controls.Add(this.label27);
+            this.groupBox6.Controls.Add(this.label28);
+            this.groupBox6.Controls.Add(this.label29);
+            this.groupBox6.Controls.Add(this.flAccZtextbox);
+            this.groupBox6.Controls.Add(this.flAccYtextbox);
+            this.groupBox6.Controls.Add(this.flAccXtextbox);
+            this.groupBox6.Controls.Add(this.flRotYZtextbox);
+            this.groupBox6.Controls.Add(this.flRotXZtextbox);
+            this.groupBox6.Location = new System.Drawing.Point(16, 358);
+            this.groupBox6.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox6.Size = new System.Drawing.Size(172, 174);
+            this.groupBox6.TabIndex = 22;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Left Foot";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(7, 142);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(37, 16);
+            this.label25.TabIndex = 9;
+            this.label25.Text = "accZ";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(7, 116);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(38, 16);
+            this.label26.TabIndex = 8;
+            this.label26.Text = "accY";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(7, 86);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(37, 16);
+            this.label27.TabIndex = 7;
+            this.label27.Text = "accX";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(7, 58);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(39, 16);
+            this.label28.TabIndex = 6;
+            this.label28.Text = "rotYZ";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(7, 30);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(38, 16);
+            this.label29.TabIndex = 5;
+            this.label29.Text = "rotXZ";
+            // 
+            // flAccZtextbox
+            // 
+            this.flAccZtextbox.Enabled = false;
+            this.flAccZtextbox.Location = new System.Drawing.Point(56, 139);
+            this.flAccZtextbox.Name = "flAccZtextbox";
+            this.flAccZtextbox.Size = new System.Drawing.Size(100, 22);
+            this.flAccZtextbox.TabIndex = 4;
+            // 
+            // flAccYtextbox
+            // 
+            this.flAccYtextbox.Enabled = false;
+            this.flAccYtextbox.Location = new System.Drawing.Point(56, 111);
+            this.flAccYtextbox.Name = "flAccYtextbox";
+            this.flAccYtextbox.Size = new System.Drawing.Size(100, 22);
+            this.flAccYtextbox.TabIndex = 3;
+            // 
+            // flAccXtextbox
+            // 
+            this.flAccXtextbox.Enabled = false;
+            this.flAccXtextbox.Location = new System.Drawing.Point(56, 83);
+            this.flAccXtextbox.Name = "flAccXtextbox";
+            this.flAccXtextbox.Size = new System.Drawing.Size(100, 22);
+            this.flAccXtextbox.TabIndex = 2;
+            // 
+            // flRotYZtextbox
+            // 
+            this.flRotYZtextbox.Enabled = false;
+            this.flRotYZtextbox.Location = new System.Drawing.Point(56, 55);
+            this.flRotYZtextbox.Name = "flRotYZtextbox";
+            this.flRotYZtextbox.Size = new System.Drawing.Size(100, 22);
+            this.flRotYZtextbox.TabIndex = 1;
+            // 
+            // flRotXZtextbox
+            // 
+            this.flRotXZtextbox.Enabled = false;
+            this.flRotXZtextbox.Location = new System.Drawing.Point(56, 27);
+            this.flRotXZtextbox.Name = "flRotXZtextbox";
+            this.flRotXZtextbox.Size = new System.Drawing.Size(100, 22);
+            this.flRotXZtextbox.TabIndex = 0;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.label30);
+            this.groupBox7.Controls.Add(this.label33);
+            this.groupBox7.Controls.Add(this.label31);
+            this.groupBox7.Controls.Add(this.label34);
+            this.groupBox7.Controls.Add(this.label32);
+            this.groupBox7.Controls.Add(this.ccRotYZtextbox);
+            this.groupBox7.Controls.Add(this.ccAccZtextbox);
+            this.groupBox7.Controls.Add(this.ccAccYtextbox);
+            this.groupBox7.Controls.Add(this.ccRotXZtextbox);
+            this.groupBox7.Controls.Add(this.ccAccXtextbox);
+            this.groupBox7.Location = new System.Drawing.Point(16, 233);
+            this.groupBox7.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox7.Size = new System.Drawing.Size(362, 117);
+            this.groupBox7.TabIndex = 24;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Torso";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(197, 82);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(37, 16);
+            this.label30.TabIndex = 15;
+            this.label30.Text = "accZ";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(7, 58);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(39, 16);
+            this.label33.TabIndex = 6;
+            this.label33.Text = "rotYZ";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(197, 56);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(38, 16);
+            this.label31.TabIndex = 14;
+            this.label31.Text = "accY";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(7, 30);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(38, 16);
+            this.label34.TabIndex = 5;
+            this.label34.Text = "rotXZ";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(197, 26);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(37, 16);
+            this.label32.TabIndex = 13;
+            this.label32.Text = "accX";
+            // 
+            // ccRotYZtextbox
+            // 
+            this.ccRotYZtextbox.Enabled = false;
+            this.ccRotYZtextbox.Location = new System.Drawing.Point(56, 55);
+            this.ccRotYZtextbox.Name = "ccRotYZtextbox";
+            this.ccRotYZtextbox.Size = new System.Drawing.Size(100, 22);
+            this.ccRotYZtextbox.TabIndex = 1;
+            // 
+            // ccAccZtextbox
+            // 
+            this.ccAccZtextbox.Enabled = false;
+            this.ccAccZtextbox.Location = new System.Drawing.Point(246, 79);
+            this.ccAccZtextbox.Name = "ccAccZtextbox";
+            this.ccAccZtextbox.Size = new System.Drawing.Size(100, 22);
+            this.ccAccZtextbox.TabIndex = 12;
+            // 
+            // ccAccYtextbox
+            // 
+            this.ccAccYtextbox.Enabled = false;
+            this.ccAccYtextbox.Location = new System.Drawing.Point(246, 51);
+            this.ccAccYtextbox.Name = "ccAccYtextbox";
+            this.ccAccYtextbox.Size = new System.Drawing.Size(100, 22);
+            this.ccAccYtextbox.TabIndex = 11;
+            // 
+            // ccRotXZtextbox
+            // 
+            this.ccRotXZtextbox.Enabled = false;
+            this.ccRotXZtextbox.Location = new System.Drawing.Point(56, 27);
+            this.ccRotXZtextbox.Name = "ccRotXZtextbox";
+            this.ccRotXZtextbox.Size = new System.Drawing.Size(100, 22);
+            this.ccRotXZtextbox.TabIndex = 0;
+            // 
+            // ccAccXtextbox
+            // 
+            this.ccAccXtextbox.Enabled = false;
+            this.ccAccXtextbox.Location = new System.Drawing.Point(246, 23);
+            this.ccAccXtextbox.Name = "ccAccXtextbox";
+            this.ccAccXtextbox.Size = new System.Drawing.Size(100, 22);
+            this.ccAccXtextbox.TabIndex = 10;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1185, 588);
+            this.ClientSize = new System.Drawing.Size(1377, 588);
+            this.Controls.Add(this.groupBox7);
+            this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.senseUDPpowerButton);
@@ -576,6 +948,12 @@ namespace IMDAdataReceptionV2 {
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -627,6 +1005,39 @@ namespace IMDAdataReceptionV2 {
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox frAccZtextbox;
+        private System.Windows.Forms.TextBox frAccYtextbox;
+        private System.Windows.Forms.TextBox frAccXtextbox;
+        private System.Windows.Forms.TextBox frRotYZtextbox;
+        private System.Windows.Forms.TextBox frRotXZtextbox;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox flAccZtextbox;
+        private System.Windows.Forms.TextBox flAccYtextbox;
+        private System.Windows.Forms.TextBox flAccXtextbox;
+        private System.Windows.Forms.TextBox flRotYZtextbox;
+        private System.Windows.Forms.TextBox flRotXZtextbox;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox ccRotYZtextbox;
+        private System.Windows.Forms.TextBox ccAccZtextbox;
+        private System.Windows.Forms.TextBox ccAccYtextbox;
+        private System.Windows.Forms.TextBox ccRotXZtextbox;
+        private System.Windows.Forms.TextBox ccAccXtextbox;
     }
 }
 
