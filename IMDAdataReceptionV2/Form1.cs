@@ -31,11 +31,11 @@ namespace IMDAdataReceptionV2 {
         CustomLabel dAccLabel = new CustomLabel(13, 15, "D", 1, LabelMarkStyle.None);
         CustomLabel uAccLabel = new CustomLabel(-15, -13, "U", 1, LabelMarkStyle.None);
         bool changeChartFormat = false;
+        bool senseServerStatus, senseServerStarted = false, senseServerTurnedOff;
         int senseUDPport;
         Thread senseUDPserverThread;
         IPEndPoint senseUDPserverEP;
         UdpClient senseUDPserver;
-        bool senseServerStatus, senseServerStarted = false, senseServerTurnedOff;
         Queue<double> data = new Queue<double>(10);
 
         // UDP animod variables
@@ -51,21 +51,11 @@ namespace IMDAdataReceptionV2 {
             //Size = new Size(1920, 830); // Full size without windows taskbar
             serverAddress = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString(); // Get server's IP Address
             serverAddressBox.Text = serverAddress; // Display the server's IP Address
-            chart1.Series[0].ChartType = SeriesChartType.FastLine;
+            // Customize the chart
+            chart1.Series[0].ChartType = SeriesChartType.FastLine; 
             chart1.Legends[0].Enabled = false;
             chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.Gainsboro;
             chart1.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.Gainsboro;
-        }
-
-        void setChartFormat(int lineSize, int max, int interval, int min, String title, CustomLabel label1, CustomLabel label2) {
-            chart1.Series[0].BorderWidth = lineSize;
-            chart1.ChartAreas["ChartArea1"].AxisY.Maximum = max;
-            chart1.ChartAreas["ChartArea1"].AxisY.Interval = interval;
-            chart1.ChartAreas["ChartArea1"].AxisY.Minimum = min;
-            chart1.ChartAreas["ChartArea1"].AxisY.Title = title;
-            chart1.ChartAreas["ChartArea1"].AxisY.CustomLabels.Clear();
-            chart1.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(label1);
-            chart1.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(label2);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) {
@@ -73,9 +63,33 @@ namespace IMDAdataReceptionV2 {
             changeChartFormat = true;
         }
 
+        void displayData(TextBox RotXZtextbox, TextBox RotYZtextbox, TextBox AccXtextbox, TextBox AccYtextbox, TextBox AccZtextbox) {
+            RotXZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(6, 6)).ToString();
+            RotYZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(16, 6)).ToString();
+            AccXtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(25, 6)).ToString();
+            AccYtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(34, 6)).ToString();
+            AccZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(43, 6)).ToString();
+        }
+
+        void graphData(int lineSize, int max, int interval, int min, String title, CustomLabel label1, CustomLabel label2, TextBox textbox) {
+            if (changeChartFormat) { // If the data type selecction changed
+                // The graph format are changed accordingly
+                chart1.Series[0].BorderWidth = lineSize;
+                chart1.ChartAreas["ChartArea1"].AxisY.Maximum = max;
+                chart1.ChartAreas["ChartArea1"].AxisY.Interval = interval;
+                chart1.ChartAreas["ChartArea1"].AxisY.Minimum = min;
+                chart1.ChartAreas["ChartArea1"].AxisY.Title = title;
+                chart1.ChartAreas["ChartArea1"].AxisY.CustomLabels.Clear();
+                chart1.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(label1);
+                chart1.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(label2);
+                changeChartFormat = false;
+            }
+            data.Enqueue(Convert.ToDouble(textbox.Text));
+        }
+
         void listenSense() {
             while (true) {
-                byte[] inputData = senseUDPserver.Receive(ref senseUDPserverEP); // Receive the informations
+                byte[] inputData = senseUDPserver.Receive(ref senseUDPserverEP); // Receive the information
                 if (senseServerTurnedOff) { // If the server was turned off and is now turned on
                     inputData = Encoding.ASCII.GetBytes(""); // Delete what was stored in the buffer when the server was off
                     senseServerTurnedOff = false;
@@ -84,227 +98,108 @@ namespace IMDAdataReceptionV2 {
                     this.Invoke((MethodInvoker)delegate {
                         senseUDPmessageBox.Text = Encoding.ASCII.GetString(inputData);
                         if (senseUDPmessageBox.Text.Length == 50 && !senseUDPmessageBox.Text.Contains("NAN")) { // If a whole valid frame was received
-                            switch (senseUDPmessageBox.Text.Substring(0,2)) {
+                            switch (senseUDPmessageBox.Text.Substring(0,2)) { // Depending on what sensor sent the information, display it in the corresponding textboxes
                                 case "AL":
-                                    alRotXZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(6, 6)).ToString();
-                                    alRotYZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(16, 6)).ToString();
-                                    alAccXtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(25, 6)).ToString();
-                                    alAccYtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(34, 6)).ToString();
-                                    alAccZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(43, 6)).ToString();
+                                    displayData(alRotXZtextbox, alRotYZtextbox, alAccXtextbox, alAccYtextbox, alAccZtextbox);
                                     break;
                                 case "AR":
-                                    arRotXZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(6, 6)).ToString();
-                                    arRotYZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(16, 6)).ToString();
-                                    arAccXtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(25, 6)).ToString();
-                                    arAccYtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(34, 6)).ToString();
-                                    arAccZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(43, 6)).ToString();
+                                    displayData(arRotXZtextbox, arRotYZtextbox, arAccXtextbox, arAccYtextbox, arAccZtextbox);
                                     break;
                                 case "FL":
-                                    flRotXZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(6, 6)).ToString();
-                                    flRotYZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(16, 6)).ToString();
-                                    flAccXtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(25, 6)).ToString();
-                                    flAccYtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(34, 6)).ToString();
-                                    flAccZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(43, 6)).ToString();
+                                    displayData(flRotXZtextbox, flRotYZtextbox, flAccXtextbox, flAccYtextbox, flAccZtextbox);
                                     break;
                                 case "FR":
-                                    frRotXZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(6, 6)).ToString();
-                                    frRotYZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(16, 6)).ToString();
-                                    frAccXtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(25, 6)).ToString();
-                                    frAccYtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(34, 6)).ToString();
-                                    frAccZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(43, 6)).ToString();
+                                    displayData(frRotXZtextbox, frRotYZtextbox, frAccXtextbox, frAccYtextbox, frAccZtextbox);
                                     break;
                                 case "CC":
-                                    ccRotXZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(6, 6)).ToString();
-                                    ccRotYZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(16, 6)).ToString();
-                                    ccAccXtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(25, 6)).ToString();
-                                    ccAccYtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(34, 6)).ToString();
-                                    ccAccZtextbox.Text = Convert.ToDouble(senseUDPmessageBox.Text.Substring(43, 6)).ToString();
+                                    displayData(ccRotXZtextbox, ccRotYZtextbox, ccAccXtextbox, ccAccYtextbox, ccAccZtextbox);
                                     break;
                                 default:
                                     break;
                             }
-                            if(comboBox1.SelectedIndex != -1) {
-                                if (data.Count == 10) {
-                                    data.Dequeue();
+                            if(comboBox1.SelectedIndex != -1) { // If a type of data is selected to be graphed
+                                if (data.Count == 10) { // If 10 data points are graphed
+                                    data.Dequeue(); // Erase the oldest one
                                 }
-                                switch (comboBox1.SelectedItem.ToString()) {
-                                    case "Left Arm XZ Rotation":
-                                        if (changeChartFormat) {
-                                            setChartFormat(5, 90, 30, -90, "Left Arm XZ Rotation", fRotLabel, bRotLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(alRotXZtextbox.Text));
+                                switch (comboBox1.SelectedIndex) { // Graph the corresponding data point
+                                    // This code could be reduced by using an array of structures and using the selected index as the array index
+                                    case 1: // Left Arm XZ Rotation
+                                        graphData(5, 90, 30, -90, "Left Arm XZ Rotation", fRotLabel, bRotLabel, alRotXZtextbox);
                                         break;
-                                    case "Left Arm YZ Rotation":
-                                        if (changeChartFormat) {
-                                            setChartFormat(5, 90, 30, -90, "Left Arm YZ Rotation", rRotLabel, lRotLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(alRotYZtextbox.Text));
+                                    case 2: // Left Arm YZ Rotation
+                                        graphData(5, 90, 30, -90, "Left Arm YZ Rotation", rRotLabel, lRotLabel, alRotYZtextbox);
                                         break;
-                                    case "Left Arm X Acceleration":
-                                        if (changeChartFormat) {
-                                            setChartFormat(3, 15, 5, -15, "Left Arm X Acceleration", rAccLabel, lAccLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(alAccXtextbox.Text));
+                                    case 3: // Left Arm X Acceleration
+                                        graphData(3, 15, 5, -15, "Left Arm X Acceleration", rAccLabel, lAccLabel, alAccXtextbox);
                                         break;
-                                    case "Left Arm Y Acceleration":
-                                        if (changeChartFormat) {
-                                            setChartFormat(3, 15, 5, -15, "Left Arm Y Acceleration", fAccLabel, bAccLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(alAccYtextbox.Text));
+                                    case 4: // Left Arm Y Acceleration
+                                        graphData(3, 15, 5, -15, "Left Arm Y Acceleration", fAccLabel, bAccLabel, alAccYtextbox);
                                         break;
-                                    case "Left Arm Z Acceleration":
-                                        if (changeChartFormat) {
-                                            setChartFormat(3, 15, 5, -15, "Left Arm Z Acceleration", uAccLabel, dAccLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(alAccZtextbox.Text));
+                                    case 5: // Left Arm Z Acceleration
+                                        graphData(3, 15, 5, -15, "Left Arm Z Acceleration", uAccLabel, dAccLabel, alAccZtextbox);
                                         break;
-                                    case "Right Arm XZ Rotation":
-                                        if (changeChartFormat) {
-                                            setChartFormat(5, 90, 30, -90, "Right Arm XZ Rotation", fRotLabel, bRotLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(arRotXZtextbox.Text));
+                                    case 6: // Right Arm XZ Rotation
+                                        graphData(5, 90, 30, -90, "Right Arm XZ Rotation", fRotLabel, bRotLabel, arRotXZtextbox);
                                         break;
-                                    case "Right Arm YZ Rotation":
-                                        if (changeChartFormat) {
-                                            setChartFormat(5, 90, 30, -90, "Right Arm YZ Rotation", rRotLabel, lRotLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(arRotYZtextbox.Text));
+                                    case 7: // Right Arm YZ Rotation
+                                        graphData(5, 90, 30, -90, "Right Arm YZ Rotation", rRotLabel, lRotLabel, arRotYZtextbox);
                                         break;
-                                    case "Right Arm X Acceleration":
-                                        if (changeChartFormat) {
-                                            setChartFormat(3, 15, 5, -15, "Right Arm X Acceleration", rAccLabel, lAccLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(arAccXtextbox.Text));
+                                    case 8: // Right Arm X Acceleration
+                                        graphData(3, 15, 5, -15, "Right Arm X Acceleration", rAccLabel, lAccLabel, arAccXtextbox);
                                         break;
-                                    case "Right Arm Y Acceleration":
-                                        if (changeChartFormat) {
-                                            setChartFormat(3, 15, 5, -15, "Right Arm Y Acceleration", fAccLabel, bAccLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(arAccYtextbox.Text));
+                                    case 9: // Right Arm Y Acceleration
+                                        graphData(3, 15, 5, -15, "Right Arm Y Acceleration", fAccLabel, bAccLabel, arAccYtextbox);
                                         break;
-                                    case "Right Arm Z Acceleration":
-                                        if (changeChartFormat) {
-                                            setChartFormat(3, 15, 5, -15, "Right Arm Z Acceleration", uAccLabel, dAccLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(arAccZtextbox.Text));
+                                    case 10: // Right Arm Z Acceleration
+                                        graphData(3, 15, 5, -15, "Right Arm Z Acceleration", uAccLabel, dAccLabel, arAccZtextbox);
                                         break;
-                                    case "Torso XZ Rotation":
-                                        if (changeChartFormat) {
-                                            setChartFormat(5, 90, 30, -90, "Torso XZ Rotation", fRotLabel, bRotLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(ccRotXZtextbox.Text));
+                                    case 11: // Torso XZ Rotation
+                                        graphData(5, 90, 30, -90, "Torso XZ Rotation", fRotLabel, bRotLabel, ccRotXZtextbox);
                                         break;
-                                    case "Torso YZ Rotation":
-                                        if (changeChartFormat) {
-                                            setChartFormat(5, 90, 30, -90, "Torso YZ Rotation", rRotLabel, lRotLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(ccRotYZtextbox.Text));
+                                    case 12: // Torso YZ Rotation
+                                        graphData(5, 90, 30, -90, "Torso YZ Rotation", rRotLabel, lRotLabel, ccRotYZtextbox);
                                         break;
-                                    case "Torso X Acceleration":
-                                        if (changeChartFormat) {
-                                            setChartFormat(3, 15, 5, -15, "Torso X Acceleration", rAccLabel, lAccLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(ccAccXtextbox.Text));
+                                    case 13: // Torso X Acceleration
+                                        graphData(3, 15, 5, -15, "Torso X Acceleration", rAccLabel, lAccLabel, ccAccXtextbox);
                                         break;
-                                    case "Torso Y Acceleration":
-                                        if (changeChartFormat) {
-                                            setChartFormat(3, 15, 5, -15, "Torso Y Acceleration", fAccLabel, bAccLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(ccAccYtextbox.Text));
+                                    case 14: // Torso Y Acceleration
+                                        graphData(3, 15, 5, -15, "Torso Y Acceleration", fAccLabel, bAccLabel, ccAccYtextbox);
                                         break;
-                                    case "Torso Z Acceleration":
-                                        if (changeChartFormat) {
-                                            setChartFormat(3, 15, 5, -15, "Torso Z Acceleration", uAccLabel, dAccLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(ccAccZtextbox.Text));
+                                    case 15: // Torso Z Acceleration
+                                        graphData(3, 15, 5, -15, "Torso Z Acceleration", uAccLabel, dAccLabel, ccAccZtextbox);
                                         break;
-                                    case "Left Foot XZ Rotation":
-                                        if (changeChartFormat) {
-                                            setChartFormat(5, 90, 30, -90, "Left Foot XZ Rotation", fRotLabel, bRotLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(flRotXZtextbox.Text));
+                                    case 16: // Left Foot XZ Rotation
+                                        graphData(5, 90, 30, -90, "Left Foot XZ Rotation", fRotLabel, bRotLabel, flRotXZtextbox);
                                         break;
-                                    case "Left Foot YZ Rotation":
-                                        if (changeChartFormat) {
-                                            setChartFormat(5, 90, 30, -90, "Left Foot YZ Rotation", rRotLabel, lRotLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(flRotYZtextbox.Text));
+                                    case 17: // Left Foot XY Rotation
+                                        graphData(5, 90, 30, -90, "Left Foot YZ Rotation", rRotLabel, lRotLabel, flRotYZtextbox);
                                         break;
-                                    case "Left Foot X Acceleration":
-                                        if (changeChartFormat) {
-                                            setChartFormat(3, 15, 5, -15, "Left Foot X Acceleration", rAccLabel, lAccLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(flAccXtextbox.Text));
+                                    case 18: // Left Foot X Acceleration
+                                        graphData(3, 15, 5, -15, "Left Foot X Acceleration", rAccLabel, lAccLabel, flAccXtextbox);
                                         break;
-                                    case "Left Foot Y Acceleration":
-                                        if (changeChartFormat) {
-                                            setChartFormat(3, 15, 5, -15, "Left Foot Y Acceleration", fAccLabel, bAccLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(flAccYtextbox.Text));
+                                    case 19: // Left Foot Y Acceleration
+                                        graphData(3, 15, 5, -15, "Left Foot Y Acceleration", fAccLabel, bAccLabel, flAccYtextbox);
                                         break;
-                                    case "Left Foot Z Acceleration":
-                                        if (changeChartFormat) {
-                                            setChartFormat(3, 15, 5, -15, "Left Foot Z Acceleration", uAccLabel, dAccLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(flAccZtextbox.Text));
+                                    case 20: // Left Foot Z Acceleration
+                                        graphData(3, 15, 5, -15, "Left Foot Z Acceleration", uAccLabel, dAccLabel, flAccZtextbox);
                                         break;
-                                    case "Right Foot XZ Rotation":
-                                        if (changeChartFormat) {
-                                            setChartFormat(5, 90, 30, -90, "Right Foot XZ Rotation", fRotLabel, bRotLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(frRotXZtextbox.Text));
+                                    case 21: // Right Foot XZ Rotation
+                                        graphData(5, 90, 30, -90, "Right Foot XZ Rotation", fRotLabel, bRotLabel, frRotXZtextbox);
                                         break;
-                                    case "Right Foot YZ Rotation":
-                                        if (changeChartFormat) {
-                                            setChartFormat(5, 90, 30, -90, "Right Foot YZ Rotation", rRotLabel, lRotLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(frRotYZtextbox.Text));
+                                    case 22: // Right Foot YZ Rotation
+                                        graphData(5, 90, 30, -90, "Right Foot YZ Rotation", rRotLabel, lRotLabel, frRotYZtextbox);
                                         break;
-                                    case "Right Foot X Acceleration":
-                                        if (changeChartFormat) {
-                                            setChartFormat(3, 15, 5, -15, "Right Foot X Acceleration", rAccLabel, lAccLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(frAccXtextbox.Text));
+                                    case 23: // Right Foot X Acceleration
+                                        graphData(3, 15, 5, -15, "Right Foot X Acceleration", rAccLabel, lAccLabel, frAccXtextbox);
                                         break;
-                                    case "Right Foot Y Acceleration":
-                                        if (changeChartFormat) {
-                                            setChartFormat(3, 15, 5, -15, "Right Foot Y Acceleration", fAccLabel, bAccLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(frAccYtextbox.Text));
+                                    case 24: // Right Foot Y Acceleration
+                                        graphData(3, 15, 5, -15, "Right Foot Y Acceleration", fAccLabel, bAccLabel, frAccYtextbox);
                                         break;
-                                    case "Right Foot Z Acceleration":
-                                        if (changeChartFormat) {
-                                            setChartFormat(3, 15, 5, -15, "Right Foot Z Acceleration", uAccLabel, dAccLabel);
-                                            changeChartFormat = false;
-                                        }
-                                        data.Enqueue(Convert.ToDouble(frAccZtextbox.Text));
+                                    case 25: // Right Foot Z Acceleration
+                                        graphData(3, 15, 5, -15, "Right Foot Z Acceleration", uAccLabel, dAccLabel, frAccZtextbox);
                                         break;
                                 }
-                                chart1.Series[0].Points.DataBindY(data);
+                                chart1.Series[0].Points.DataBindY(data); // Graph the data
                             }
                         }
                     });
@@ -469,13 +364,13 @@ namespace IMDAdataReceptionV2 {
                 }
             }
             else { // Once the initial configuration has been done
-                if (animodServerStatus) { // If the server's turned off
+                if (animodServerStatus) { // If the server is turned off
                     animodUDPserverThread.Abort();
                     animodUDPstatusIndicator.Value = 0;
                     animodServerStatus = false;
                     animodServerTurnedOff = true;
                 }
-                else { // If the server's turned on
+                else { // If the server is turned on
                     animodUDPserverThread = new Thread(() => listenAnimod());
                     animodUDPserverThread.Start();
                     animodUDPstatusIndicator.Value = 100;

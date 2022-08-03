@@ -106,6 +106,16 @@ namespace IMDAdataReceptionV2 {
             this.ccAccYtextbox = new System.Windows.Forms.TextBox();
             this.ccRotXZtextbox = new System.Windows.Forms.TextBox();
             this.ccAccXtextbox = new System.Windows.Forms.TextBox();
+            this.alResetButton = new System.Windows.Forms.Button();
+            this.alCalibrateButton = new System.Windows.Forms.Button();
+            this.arCalibrateButton = new System.Windows.Forms.Button();
+            this.arResetButton = new System.Windows.Forms.Button();
+            this.ccCalibrateButton = new System.Windows.Forms.Button();
+            this.ccResetButton = new System.Windows.Forms.Button();
+            this.flCalibrateButton = new System.Windows.Forms.Button();
+            this.flResetButton = new System.Windows.Forms.Button();
+            this.frCalibrateButton = new System.Windows.Forms.Button();
+            this.frResetButton = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
@@ -118,7 +128,9 @@ namespace IMDAdataReceptionV2 {
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.alCalibrateButton);
             this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Controls.Add(this.alResetButton);
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label10);
@@ -132,7 +144,7 @@ namespace IMDAdataReceptionV2 {
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(172, 174);
+            this.groupBox2.Size = new System.Drawing.Size(172, 200);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Left Arm";
@@ -225,7 +237,7 @@ namespace IMDAdataReceptionV2 {
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(588, 551);
+            this.label2.Location = new System.Drawing.Point(588, 594);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 16);
@@ -234,7 +246,7 @@ namespace IMDAdataReceptionV2 {
             // 
             // senseUDPstatusIndicator
             // 
-            this.senseUDPstatusIndicator.Location = new System.Drawing.Point(640, 544);
+            this.senseUDPstatusIndicator.Location = new System.Drawing.Point(640, 592);
             this.senseUDPstatusIndicator.Margin = new System.Windows.Forms.Padding(4);
             this.senseUDPstatusIndicator.Name = "senseUDPstatusIndicator";
             this.senseUDPstatusIndicator.Size = new System.Drawing.Size(133, 28);
@@ -303,7 +315,7 @@ namespace IMDAdataReceptionV2 {
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(504, 481);
+            this.groupBox1.Size = new System.Drawing.Size(504, 533);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "UDP Animod";
@@ -311,7 +323,7 @@ namespace IMDAdataReceptionV2 {
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(306, 448);
+            this.label7.Location = new System.Drawing.Point(313, 487);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(44, 16);
@@ -320,7 +332,7 @@ namespace IMDAdataReceptionV2 {
             // 
             // animodUDPstatusIndicator
             // 
-            this.animodUDPstatusIndicator.Location = new System.Drawing.Point(364, 442);
+            this.animodUDPstatusIndicator.Location = new System.Drawing.Point(371, 481);
             this.animodUDPstatusIndicator.Margin = new System.Windows.Forms.Padding(4);
             this.animodUDPstatusIndicator.Name = "animodUDPstatusIndicator";
             this.animodUDPstatusIndicator.Size = new System.Drawing.Size(133, 28);
@@ -337,7 +349,7 @@ namespace IMDAdataReceptionV2 {
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 85);
+            this.label3.Location = new System.Drawing.Point(10, 96);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(106, 16);
@@ -347,7 +359,7 @@ namespace IMDAdataReceptionV2 {
             // animodUDPchat
             // 
             this.animodUDPchat.Enabled = false;
-            this.animodUDPchat.Location = new System.Drawing.Point(9, 105);
+            this.animodUDPchat.Location = new System.Drawing.Point(10, 116);
             this.animodUDPchat.Margin = new System.Windows.Forms.Padding(4);
             this.animodUDPchat.Multiline = true;
             this.animodUDPchat.Name = "animodUDPchat";
@@ -367,7 +379,7 @@ namespace IMDAdataReceptionV2 {
             // 
             // animodUDPpowerButton
             // 
-            this.animodUDPpowerButton.Location = new System.Drawing.Point(9, 442);
+            this.animodUDPpowerButton.Location = new System.Drawing.Point(16, 481);
             this.animodUDPpowerButton.Margin = new System.Windows.Forms.Padding(4);
             this.animodUDPpowerButton.Name = "animodUDPpowerButton";
             this.animodUDPpowerButton.Size = new System.Drawing.Size(211, 28);
@@ -379,7 +391,7 @@ namespace IMDAdataReceptionV2 {
             // serverAddressBox
             // 
             this.serverAddressBox.Enabled = false;
-            this.serverAddressBox.Location = new System.Drawing.Point(1153, 550);
+            this.serverAddressBox.Location = new System.Drawing.Point(1153, 591);
             this.serverAddressBox.Margin = new System.Windows.Forms.Padding(4);
             this.serverAddressBox.Name = "serverAddressBox";
             this.serverAddressBox.Size = new System.Drawing.Size(209, 22);
@@ -388,7 +400,7 @@ namespace IMDAdataReceptionV2 {
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(1069, 553);
+            this.label6.Location = new System.Drawing.Point(1069, 594);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(73, 16);
@@ -398,7 +410,7 @@ namespace IMDAdataReceptionV2 {
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(28, 553);
+            this.label8.Location = new System.Drawing.Point(39, 597);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(48, 16);
             this.label8.TabIndex = 12;
@@ -407,7 +419,7 @@ namespace IMDAdataReceptionV2 {
             // debugTextBox
             // 
             this.debugTextBox.Enabled = false;
-            this.debugTextBox.Location = new System.Drawing.Point(85, 548);
+            this.debugTextBox.Location = new System.Drawing.Point(96, 592);
             this.debugTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.debugTextBox.Name = "debugTextBox";
             this.debugTextBox.Size = new System.Drawing.Size(209, 22);
@@ -419,18 +431,20 @@ namespace IMDAdataReceptionV2 {
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(10, 66);
+            this.chart1.Location = new System.Drawing.Point(10, 71);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(450, 399);
+            this.chart1.Size = new System.Drawing.Size(450, 438);
             this.chart1.TabIndex = 18;
             this.chart1.Text = "chart1";
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.arCalibrateButton);
+            this.groupBox3.Controls.Add(this.arResetButton);
             this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.label15);
             this.groupBox3.Controls.Add(this.label16);
@@ -445,7 +459,7 @@ namespace IMDAdataReceptionV2 {
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(172, 174);
+            this.groupBox3.Size = new System.Drawing.Size(172, 200);
             this.groupBox3.TabIndex = 15;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Right Arm";
@@ -580,7 +594,7 @@ namespace IMDAdataReceptionV2 {
             this.groupBox4.Controls.Add(this.chart1);
             this.groupBox4.Location = new System.Drawing.Point(385, 51);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(466, 481);
+            this.groupBox4.Size = new System.Drawing.Size(466, 533);
             this.groupBox4.TabIndex = 21;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Data visualization";
@@ -596,6 +610,8 @@ namespace IMDAdataReceptionV2 {
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.frCalibrateButton);
+            this.groupBox5.Controls.Add(this.frResetButton);
             this.groupBox5.Controls.Add(this.label20);
             this.groupBox5.Controls.Add(this.label21);
             this.groupBox5.Controls.Add(this.label22);
@@ -606,11 +622,11 @@ namespace IMDAdataReceptionV2 {
             this.groupBox5.Controls.Add(this.frAccXtextbox);
             this.groupBox5.Controls.Add(this.frRotYZtextbox);
             this.groupBox5.Controls.Add(this.frRotXZtextbox);
-            this.groupBox5.Location = new System.Drawing.Point(206, 358);
+            this.groupBox5.Location = new System.Drawing.Point(206, 384);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox5.Size = new System.Drawing.Size(172, 174);
+            this.groupBox5.Size = new System.Drawing.Size(172, 200);
             this.groupBox5.TabIndex = 23;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Right Foot";
@@ -702,6 +718,8 @@ namespace IMDAdataReceptionV2 {
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.flCalibrateButton);
+            this.groupBox6.Controls.Add(this.flResetButton);
             this.groupBox6.Controls.Add(this.label25);
             this.groupBox6.Controls.Add(this.label26);
             this.groupBox6.Controls.Add(this.label27);
@@ -712,11 +730,11 @@ namespace IMDAdataReceptionV2 {
             this.groupBox6.Controls.Add(this.flAccXtextbox);
             this.groupBox6.Controls.Add(this.flRotYZtextbox);
             this.groupBox6.Controls.Add(this.flRotXZtextbox);
-            this.groupBox6.Location = new System.Drawing.Point(16, 358);
+            this.groupBox6.Location = new System.Drawing.Point(16, 384);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox6.Size = new System.Drawing.Size(172, 174);
+            this.groupBox6.Size = new System.Drawing.Size(172, 200);
             this.groupBox6.TabIndex = 22;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Left Foot";
@@ -808,6 +826,8 @@ namespace IMDAdataReceptionV2 {
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.ccCalibrateButton);
+            this.groupBox7.Controls.Add(this.ccResetButton);
             this.groupBox7.Controls.Add(this.label30);
             this.groupBox7.Controls.Add(this.label33);
             this.groupBox7.Controls.Add(this.label31);
@@ -818,7 +838,7 @@ namespace IMDAdataReceptionV2 {
             this.groupBox7.Controls.Add(this.ccAccYtextbox);
             this.groupBox7.Controls.Add(this.ccRotXZtextbox);
             this.groupBox7.Controls.Add(this.ccAccXtextbox);
-            this.groupBox7.Location = new System.Drawing.Point(16, 233);
+            this.groupBox7.Location = new System.Drawing.Point(16, 259);
             this.groupBox7.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Padding = new System.Windows.Forms.Padding(4);
@@ -912,11 +932,101 @@ namespace IMDAdataReceptionV2 {
             this.ccAccXtextbox.Size = new System.Drawing.Size(100, 22);
             this.ccAccXtextbox.TabIndex = 10;
             // 
+            // alResetButton
+            // 
+            this.alResetButton.Location = new System.Drawing.Point(10, 167);
+            this.alResetButton.Name = "alResetButton";
+            this.alResetButton.Size = new System.Drawing.Size(75, 23);
+            this.alResetButton.TabIndex = 25;
+            this.alResetButton.Text = "Reset";
+            this.alResetButton.UseVisualStyleBackColor = true;
+            // 
+            // alCalibrateButton
+            // 
+            this.alCalibrateButton.Location = new System.Drawing.Point(90, 167);
+            this.alCalibrateButton.Name = "alCalibrateButton";
+            this.alCalibrateButton.Size = new System.Drawing.Size(75, 23);
+            this.alCalibrateButton.TabIndex = 26;
+            this.alCalibrateButton.Text = "Calibrate";
+            this.alCalibrateButton.UseVisualStyleBackColor = true;
+            // 
+            // arCalibrateButton
+            // 
+            this.arCalibrateButton.Location = new System.Drawing.Point(90, 167);
+            this.arCalibrateButton.Name = "arCalibrateButton";
+            this.arCalibrateButton.Size = new System.Drawing.Size(75, 23);
+            this.arCalibrateButton.TabIndex = 28;
+            this.arCalibrateButton.Text = "Calibrate";
+            this.arCalibrateButton.UseVisualStyleBackColor = true;
+            // 
+            // arResetButton
+            // 
+            this.arResetButton.Location = new System.Drawing.Point(10, 167);
+            this.arResetButton.Name = "arResetButton";
+            this.arResetButton.Size = new System.Drawing.Size(75, 23);
+            this.arResetButton.TabIndex = 27;
+            this.arResetButton.Text = "Reset";
+            this.arResetButton.UseVisualStyleBackColor = true;
+            // 
+            // ccCalibrateButton
+            // 
+            this.ccCalibrateButton.Location = new System.Drawing.Point(90, 82);
+            this.ccCalibrateButton.Name = "ccCalibrateButton";
+            this.ccCalibrateButton.Size = new System.Drawing.Size(75, 23);
+            this.ccCalibrateButton.TabIndex = 30;
+            this.ccCalibrateButton.Text = "Calibrate";
+            this.ccCalibrateButton.UseVisualStyleBackColor = true;
+            // 
+            // ccResetButton
+            // 
+            this.ccResetButton.Location = new System.Drawing.Point(10, 82);
+            this.ccResetButton.Name = "ccResetButton";
+            this.ccResetButton.Size = new System.Drawing.Size(75, 23);
+            this.ccResetButton.TabIndex = 29;
+            this.ccResetButton.Text = "Reset";
+            this.ccResetButton.UseVisualStyleBackColor = true;
+            // 
+            // flCalibrateButton
+            // 
+            this.flCalibrateButton.Location = new System.Drawing.Point(90, 167);
+            this.flCalibrateButton.Name = "flCalibrateButton";
+            this.flCalibrateButton.Size = new System.Drawing.Size(75, 23);
+            this.flCalibrateButton.TabIndex = 32;
+            this.flCalibrateButton.Text = "Calibrate";
+            this.flCalibrateButton.UseVisualStyleBackColor = true;
+            // 
+            // flResetButton
+            // 
+            this.flResetButton.Location = new System.Drawing.Point(10, 167);
+            this.flResetButton.Name = "flResetButton";
+            this.flResetButton.Size = new System.Drawing.Size(75, 23);
+            this.flResetButton.TabIndex = 31;
+            this.flResetButton.Text = "Reset";
+            this.flResetButton.UseVisualStyleBackColor = true;
+            // 
+            // frCalibrateButton
+            // 
+            this.frCalibrateButton.Location = new System.Drawing.Point(90, 167);
+            this.frCalibrateButton.Name = "frCalibrateButton";
+            this.frCalibrateButton.Size = new System.Drawing.Size(75, 23);
+            this.frCalibrateButton.TabIndex = 34;
+            this.frCalibrateButton.Text = "Calibrate";
+            this.frCalibrateButton.UseVisualStyleBackColor = true;
+            // 
+            // frResetButton
+            // 
+            this.frResetButton.Location = new System.Drawing.Point(10, 167);
+            this.frResetButton.Name = "frResetButton";
+            this.frResetButton.Size = new System.Drawing.Size(75, 23);
+            this.frResetButton.TabIndex = 33;
+            this.frResetButton.Text = "Reset";
+            this.frResetButton.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1377, 588);
+            this.ClientSize = new System.Drawing.Size(1377, 627);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox6);
@@ -1038,6 +1148,16 @@ namespace IMDAdataReceptionV2 {
         private System.Windows.Forms.TextBox ccAccYtextbox;
         private System.Windows.Forms.TextBox ccRotXZtextbox;
         private System.Windows.Forms.TextBox ccAccXtextbox;
+        private System.Windows.Forms.Button alResetButton;
+        private System.Windows.Forms.Button alCalibrateButton;
+        private System.Windows.Forms.Button arCalibrateButton;
+        private System.Windows.Forms.Button arResetButton;
+        private System.Windows.Forms.Button frCalibrateButton;
+        private System.Windows.Forms.Button frResetButton;
+        private System.Windows.Forms.Button flCalibrateButton;
+        private System.Windows.Forms.Button flResetButton;
+        private System.Windows.Forms.Button ccCalibrateButton;
+        private System.Windows.Forms.Button ccResetButton;
     }
 }
 
