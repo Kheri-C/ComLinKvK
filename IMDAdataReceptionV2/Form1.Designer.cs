@@ -29,7 +29,9 @@ namespace IMDAdataReceptionV2 {
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.alCalibrateButton = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
+            this.alResetButton = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -60,6 +62,8 @@ namespace IMDAdataReceptionV2 {
             this.debugTextBox = new System.Windows.Forms.TextBox();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.arCalibrateButton = new System.Windows.Forms.Button();
+            this.arResetButton = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -74,6 +78,8 @@ namespace IMDAdataReceptionV2 {
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label19 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.frCalibrateButton = new System.Windows.Forms.Button();
+            this.frResetButton = new System.Windows.Forms.Button();
             this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
@@ -85,6 +91,8 @@ namespace IMDAdataReceptionV2 {
             this.frRotYZtextbox = new System.Windows.Forms.TextBox();
             this.frRotXZtextbox = new System.Windows.Forms.TextBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.flCalibrateButton = new System.Windows.Forms.Button();
+            this.flResetButton = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
@@ -96,6 +104,8 @@ namespace IMDAdataReceptionV2 {
             this.flRotYZtextbox = new System.Windows.Forms.TextBox();
             this.flRotXZtextbox = new System.Windows.Forms.TextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.ccCalibrateButton = new System.Windows.Forms.Button();
+            this.ccResetButton = new System.Windows.Forms.Button();
             this.label30 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
@@ -106,16 +116,6 @@ namespace IMDAdataReceptionV2 {
             this.ccAccYtextbox = new System.Windows.Forms.TextBox();
             this.ccRotXZtextbox = new System.Windows.Forms.TextBox();
             this.ccAccXtextbox = new System.Windows.Forms.TextBox();
-            this.alResetButton = new System.Windows.Forms.Button();
-            this.alCalibrateButton = new System.Windows.Forms.Button();
-            this.arCalibrateButton = new System.Windows.Forms.Button();
-            this.arResetButton = new System.Windows.Forms.Button();
-            this.ccCalibrateButton = new System.Windows.Forms.Button();
-            this.ccResetButton = new System.Windows.Forms.Button();
-            this.flCalibrateButton = new System.Windows.Forms.Button();
-            this.flResetButton = new System.Windows.Forms.Button();
-            this.frCalibrateButton = new System.Windows.Forms.Button();
-            this.frResetButton = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
@@ -149,6 +149,16 @@ namespace IMDAdataReceptionV2 {
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Left Arm";
             // 
+            // alCalibrateButton
+            // 
+            this.alCalibrateButton.Location = new System.Drawing.Point(90, 167);
+            this.alCalibrateButton.Name = "alCalibrateButton";
+            this.alCalibrateButton.Size = new System.Drawing.Size(75, 23);
+            this.alCalibrateButton.TabIndex = 26;
+            this.alCalibrateButton.Text = "Calibrate";
+            this.alCalibrateButton.UseVisualStyleBackColor = true;
+            this.alCalibrateButton.Click += new System.EventHandler(this.alCalibrateButton_Click);
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -157,6 +167,16 @@ namespace IMDAdataReceptionV2 {
             this.label13.Size = new System.Drawing.Size(37, 16);
             this.label13.TabIndex = 9;
             this.label13.Text = "accZ";
+            // 
+            // alResetButton
+            // 
+            this.alResetButton.Location = new System.Drawing.Point(10, 167);
+            this.alResetButton.Name = "alResetButton";
+            this.alResetButton.Size = new System.Drawing.Size(75, 23);
+            this.alResetButton.TabIndex = 25;
+            this.alResetButton.Text = "Reset";
+            this.alResetButton.UseVisualStyleBackColor = true;
+            this.alResetButton.Click += new System.EventHandler(this.alResetButton_Click);
             // 
             // label12
             // 
@@ -265,6 +285,7 @@ namespace IMDAdataReceptionV2 {
             // 
             // senseUDPportBox
             // 
+            this.senseUDPportBox.Enabled = false;
             this.senseUDPportBox.Location = new System.Drawing.Point(56, 13);
             this.senseUDPportBox.Margin = new System.Windows.Forms.Padding(4);
             this.senseUDPportBox.Name = "senseUDPportBox";
@@ -340,6 +361,7 @@ namespace IMDAdataReceptionV2 {
             // 
             // animodUDPportBox
             // 
+            this.animodUDPportBox.Enabled = false;
             this.animodUDPportBox.Location = new System.Drawing.Point(11, 53);
             this.animodUDPportBox.Margin = new System.Windows.Forms.Padding(4);
             this.animodUDPportBox.Name = "animodUDPportBox";
@@ -463,6 +485,26 @@ namespace IMDAdataReceptionV2 {
             this.groupBox3.TabIndex = 15;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Right Arm";
+            // 
+            // arCalibrateButton
+            // 
+            this.arCalibrateButton.Location = new System.Drawing.Point(90, 167);
+            this.arCalibrateButton.Name = "arCalibrateButton";
+            this.arCalibrateButton.Size = new System.Drawing.Size(75, 23);
+            this.arCalibrateButton.TabIndex = 28;
+            this.arCalibrateButton.Text = "Calibrate";
+            this.arCalibrateButton.UseVisualStyleBackColor = true;
+            this.arCalibrateButton.Click += new System.EventHandler(this.arCalibrateButton_Click);
+            // 
+            // arResetButton
+            // 
+            this.arResetButton.Location = new System.Drawing.Point(10, 167);
+            this.arResetButton.Name = "arResetButton";
+            this.arResetButton.Size = new System.Drawing.Size(75, 23);
+            this.arResetButton.TabIndex = 27;
+            this.arResetButton.Text = "Reset";
+            this.arResetButton.UseVisualStyleBackColor = true;
+            this.arResetButton.Click += new System.EventHandler(this.arResetButton_Click);
             // 
             // label14
             // 
@@ -631,6 +673,26 @@ namespace IMDAdataReceptionV2 {
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Right Foot";
             // 
+            // frCalibrateButton
+            // 
+            this.frCalibrateButton.Location = new System.Drawing.Point(90, 167);
+            this.frCalibrateButton.Name = "frCalibrateButton";
+            this.frCalibrateButton.Size = new System.Drawing.Size(75, 23);
+            this.frCalibrateButton.TabIndex = 34;
+            this.frCalibrateButton.Text = "Calibrate";
+            this.frCalibrateButton.UseVisualStyleBackColor = true;
+            this.frCalibrateButton.Click += new System.EventHandler(this.frCalibrateButton_Click);
+            // 
+            // frResetButton
+            // 
+            this.frResetButton.Location = new System.Drawing.Point(10, 167);
+            this.frResetButton.Name = "frResetButton";
+            this.frResetButton.Size = new System.Drawing.Size(75, 23);
+            this.frResetButton.TabIndex = 33;
+            this.frResetButton.Text = "Reset";
+            this.frResetButton.UseVisualStyleBackColor = true;
+            this.frResetButton.Click += new System.EventHandler(this.frResetButton_Click);
+            // 
             // label20
             // 
             this.label20.AutoSize = true;
@@ -738,6 +800,26 @@ namespace IMDAdataReceptionV2 {
             this.groupBox6.TabIndex = 22;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Left Foot";
+            // 
+            // flCalibrateButton
+            // 
+            this.flCalibrateButton.Location = new System.Drawing.Point(90, 167);
+            this.flCalibrateButton.Name = "flCalibrateButton";
+            this.flCalibrateButton.Size = new System.Drawing.Size(75, 23);
+            this.flCalibrateButton.TabIndex = 32;
+            this.flCalibrateButton.Text = "Calibrate";
+            this.flCalibrateButton.UseVisualStyleBackColor = true;
+            this.flCalibrateButton.Click += new System.EventHandler(this.flCalibrateButton_Click);
+            // 
+            // flResetButton
+            // 
+            this.flResetButton.Location = new System.Drawing.Point(10, 167);
+            this.flResetButton.Name = "flResetButton";
+            this.flResetButton.Size = new System.Drawing.Size(75, 23);
+            this.flResetButton.TabIndex = 31;
+            this.flResetButton.Text = "Reset";
+            this.flResetButton.UseVisualStyleBackColor = true;
+            this.flResetButton.Click += new System.EventHandler(this.flResetButton_Click);
             // 
             // label25
             // 
@@ -847,6 +929,26 @@ namespace IMDAdataReceptionV2 {
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Torso";
             // 
+            // ccCalibrateButton
+            // 
+            this.ccCalibrateButton.Location = new System.Drawing.Point(90, 82);
+            this.ccCalibrateButton.Name = "ccCalibrateButton";
+            this.ccCalibrateButton.Size = new System.Drawing.Size(75, 23);
+            this.ccCalibrateButton.TabIndex = 30;
+            this.ccCalibrateButton.Text = "Calibrate";
+            this.ccCalibrateButton.UseVisualStyleBackColor = true;
+            this.ccCalibrateButton.Click += new System.EventHandler(this.ccCalibrateButton_Click);
+            // 
+            // ccResetButton
+            // 
+            this.ccResetButton.Location = new System.Drawing.Point(10, 82);
+            this.ccResetButton.Name = "ccResetButton";
+            this.ccResetButton.Size = new System.Drawing.Size(75, 23);
+            this.ccResetButton.TabIndex = 29;
+            this.ccResetButton.Text = "Reset";
+            this.ccResetButton.UseVisualStyleBackColor = true;
+            this.ccResetButton.Click += new System.EventHandler(this.ccResetButton_Click);
+            // 
             // label30
             // 
             this.label30.AutoSize = true;
@@ -931,96 +1033,6 @@ namespace IMDAdataReceptionV2 {
             this.ccAccXtextbox.Name = "ccAccXtextbox";
             this.ccAccXtextbox.Size = new System.Drawing.Size(100, 22);
             this.ccAccXtextbox.TabIndex = 10;
-            // 
-            // alResetButton
-            // 
-            this.alResetButton.Location = new System.Drawing.Point(10, 167);
-            this.alResetButton.Name = "alResetButton";
-            this.alResetButton.Size = new System.Drawing.Size(75, 23);
-            this.alResetButton.TabIndex = 25;
-            this.alResetButton.Text = "Reset";
-            this.alResetButton.UseVisualStyleBackColor = true;
-            // 
-            // alCalibrateButton
-            // 
-            this.alCalibrateButton.Location = new System.Drawing.Point(90, 167);
-            this.alCalibrateButton.Name = "alCalibrateButton";
-            this.alCalibrateButton.Size = new System.Drawing.Size(75, 23);
-            this.alCalibrateButton.TabIndex = 26;
-            this.alCalibrateButton.Text = "Calibrate";
-            this.alCalibrateButton.UseVisualStyleBackColor = true;
-            // 
-            // arCalibrateButton
-            // 
-            this.arCalibrateButton.Location = new System.Drawing.Point(90, 167);
-            this.arCalibrateButton.Name = "arCalibrateButton";
-            this.arCalibrateButton.Size = new System.Drawing.Size(75, 23);
-            this.arCalibrateButton.TabIndex = 28;
-            this.arCalibrateButton.Text = "Calibrate";
-            this.arCalibrateButton.UseVisualStyleBackColor = true;
-            // 
-            // arResetButton
-            // 
-            this.arResetButton.Location = new System.Drawing.Point(10, 167);
-            this.arResetButton.Name = "arResetButton";
-            this.arResetButton.Size = new System.Drawing.Size(75, 23);
-            this.arResetButton.TabIndex = 27;
-            this.arResetButton.Text = "Reset";
-            this.arResetButton.UseVisualStyleBackColor = true;
-            // 
-            // ccCalibrateButton
-            // 
-            this.ccCalibrateButton.Location = new System.Drawing.Point(90, 82);
-            this.ccCalibrateButton.Name = "ccCalibrateButton";
-            this.ccCalibrateButton.Size = new System.Drawing.Size(75, 23);
-            this.ccCalibrateButton.TabIndex = 30;
-            this.ccCalibrateButton.Text = "Calibrate";
-            this.ccCalibrateButton.UseVisualStyleBackColor = true;
-            // 
-            // ccResetButton
-            // 
-            this.ccResetButton.Location = new System.Drawing.Point(10, 82);
-            this.ccResetButton.Name = "ccResetButton";
-            this.ccResetButton.Size = new System.Drawing.Size(75, 23);
-            this.ccResetButton.TabIndex = 29;
-            this.ccResetButton.Text = "Reset";
-            this.ccResetButton.UseVisualStyleBackColor = true;
-            // 
-            // flCalibrateButton
-            // 
-            this.flCalibrateButton.Location = new System.Drawing.Point(90, 167);
-            this.flCalibrateButton.Name = "flCalibrateButton";
-            this.flCalibrateButton.Size = new System.Drawing.Size(75, 23);
-            this.flCalibrateButton.TabIndex = 32;
-            this.flCalibrateButton.Text = "Calibrate";
-            this.flCalibrateButton.UseVisualStyleBackColor = true;
-            // 
-            // flResetButton
-            // 
-            this.flResetButton.Location = new System.Drawing.Point(10, 167);
-            this.flResetButton.Name = "flResetButton";
-            this.flResetButton.Size = new System.Drawing.Size(75, 23);
-            this.flResetButton.TabIndex = 31;
-            this.flResetButton.Text = "Reset";
-            this.flResetButton.UseVisualStyleBackColor = true;
-            // 
-            // frCalibrateButton
-            // 
-            this.frCalibrateButton.Location = new System.Drawing.Point(90, 167);
-            this.frCalibrateButton.Name = "frCalibrateButton";
-            this.frCalibrateButton.Size = new System.Drawing.Size(75, 23);
-            this.frCalibrateButton.TabIndex = 34;
-            this.frCalibrateButton.Text = "Calibrate";
-            this.frCalibrateButton.UseVisualStyleBackColor = true;
-            // 
-            // frResetButton
-            // 
-            this.frResetButton.Location = new System.Drawing.Point(10, 167);
-            this.frResetButton.Name = "frResetButton";
-            this.frResetButton.Size = new System.Drawing.Size(75, 23);
-            this.frResetButton.TabIndex = 33;
-            this.frResetButton.Text = "Reset";
-            this.frResetButton.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

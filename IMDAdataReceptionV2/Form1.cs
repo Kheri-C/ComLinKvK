@@ -19,7 +19,8 @@ namespace IMDAdataReceptionV2 {
         // General variables
         String serverAddress;
 
-        // UDP sense general variables
+        // UDP ESPsense variables
+        Int32 senseUDPport = 5332;
         CustomLabel fRotLabel = new CustomLabel(-90, -80, "F", 1, LabelMarkStyle.None);
         CustomLabel bRotLabel = new CustomLabel(80, 90, "B", 1, LabelMarkStyle.None);
         CustomLabel rRotLabel = new CustomLabel(80, 90, "R", 1, LabelMarkStyle.None);
@@ -32,14 +33,20 @@ namespace IMDAdataReceptionV2 {
         CustomLabel uAccLabel = new CustomLabel(-15, -13, "U", 1, LabelMarkStyle.None);
         bool changeChartFormat = false;
         bool senseServerStatus, senseServerStarted = false, senseServerTurnedOff;
-        int senseUDPport;
+        //int senseUDPport;
         Thread senseUDPserverThread;
         IPEndPoint senseUDPserverEP;
-        UdpClient senseUDPserver;
+        UdpClient senseUDPclient;
         Queue<double> data = new Queue<double>(10);
 
+        // TCP ESPsense variables
+        Int32 senseTCPport = 5332;
+        IPEndPoint alSenseEP, arSenseEP, ccSenseEP, flSenseEP, frSenseEP, senseTCPserverEP;
+        TcpClient senseTCPclient;
+        NetworkStream senseTCPstream;
+
         // UDP animod variables
-        int animodUDPport;
+        Int32 animodUDPport = 42069;
         Thread animodUDPserverThread;
         IPEndPoint animodUDPserverEP;
         UdpClient animodUDPserver;
@@ -51,6 +58,8 @@ namespace IMDAdataReceptionV2 {
             //Size = new Size(1920, 830); // Full size without windows taskbar
             serverAddress = Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString(); // Get server's IP Address
             serverAddressBox.Text = serverAddress; // Display the server's IP Address
+            senseUDPportBox.Text = senseUDPport.ToString();
+            animodUDPportBox.Text = animodUDPport.ToString();
             // Customize the chart
             chart1.Series[0].ChartType = SeriesChartType.FastLine; 
             chart1.Legends[0].Enabled = false;
@@ -84,12 +93,14 @@ namespace IMDAdataReceptionV2 {
                 chart1.ChartAreas["ChartArea1"].AxisY.CustomLabels.Add(label2);
                 changeChartFormat = false;
             }
-            data.Enqueue(Convert.ToDouble(textbox.Text));
+            if(textbox.Text != "") {
+                data.Enqueue(Convert.ToDouble(textbox.Text));
+            }
         }
 
         void listenSense() {
             while (true) {
-                byte[] inputData = senseUDPserver.Receive(ref senseUDPserverEP); // Receive the information
+                byte[] inputData = senseUDPclient.Receive(ref senseUDPserverEP); // Receive the information
                 if (senseServerTurnedOff) { // If the server was turned off and is now turned on
                     inputData = Encoding.ASCII.GetBytes(""); // Delete what was stored in the buffer when the server was off
                     senseServerTurnedOff = false;
@@ -207,6 +218,46 @@ namespace IMDAdataReceptionV2 {
             }
         }
 
+        private void alResetButton_Click(object sender, EventArgs e) {
+            
+        }
+
+        private void alCalibrateButton_Click(object sender, EventArgs e) {
+            
+        }
+
+        private void arResetButton_Click(object sender, EventArgs e) {
+            senseTCPstream.Write(Encoding.ASCII.GetBytes("r"), 0, Encoding.ASCII.GetBytes("c").Length);
+        }
+
+        private void arCalibrateButton_Click(object sender, EventArgs e) {
+            senseTCPstream.Write(Encoding.ASCII.GetBytes("c"), 0, Encoding.ASCII.GetBytes("c").Length);
+        }
+
+        private void ccResetButton_Click(object sender, EventArgs e) {
+            
+        }
+
+        private void ccCalibrateButton_Click(object sender, EventArgs e) {
+            
+        }
+
+        private void flResetButton_Click(object sender, EventArgs e) {
+            
+        }
+
+        private void flCalibrateButton_Click(object sender, EventArgs e) {
+            
+        }
+
+        private void frResetButton_Click(object sender, EventArgs e) {
+            
+        }
+
+        private void frCalibrateButton_Click(object sender, EventArgs e) {
+            
+        }
+
         void sendAndLog(String value) {
             animodUDPserver.Send(Encoding.ASCII.GetBytes(value), Encoding.ASCII.GetBytes(value).Length, animodUDPserverEP);
             if (chat.Count == 10) {
@@ -315,20 +366,23 @@ namespace IMDAdataReceptionV2 {
 
         private void senseUDPpowerButton_Click(object sender, EventArgs e) {
             if (!senseServerStarted) { // If the initial configuration hasn't been done
-                if (int.TryParse(senseUDPportBox.Text, out senseUDPport)) {
-                    senseUDPserverEP = new IPEndPoint(IPAddress.Any, senseUDPport);
-                    senseUDPserver = new UdpClient(senseUDPserverEP);
-                    // Start the thread
-                    senseUDPserverThread = new Thread(() => listenSense());
-                    senseUDPserverThread.Start();
-                    senseUDPstatusIndicator.Value = 100;
-                    senseServerStatus = true;
-                    senseServerStarted = true;
-                    senseUDPmessageBox.Text = "";
-                }
-                else {
-                    senseUDPmessageBox.Text = "Please input a correct port";
-                }
+                senseUDPserverEP = new IPEndPoint(IPAddress.Any, senseUDPport);
+                senseUDPclient = new UdpClient(senseUDPserverEP);
+       
+                // TCP
+                /*senseTCPserverEP = new IPEndPoint(IPAddress.Any, senseTCPport);
+                alSenseEP = new IPEndPoint(IPAddress.Parse("192.168.0.101"), senseTCPport);
+                senseTCPclient = new TcpClient(senseTCPserverEP);
+                senseTCPclient.Connect(alSenseEP); // Revisar si el puerto ya esta utilizado y ver si se puede desconectar
+                senseTCPstream = senseTCPclient.GetStream();*/
+
+                // Start the thread
+                senseUDPserverThread = new Thread(() => listenSense());
+                senseUDPserverThread.Start();
+                senseUDPstatusIndicator.Value = 100;
+                senseServerStatus = true;
+                senseServerStarted = true;
+                senseUDPmessageBox.Text = "";
             }
             else { // Once the initial configuration has been done
                 if (senseServerStatus) { // If the server's turned off
@@ -336,32 +390,35 @@ namespace IMDAdataReceptionV2 {
                     senseUDPstatusIndicator.Value = 0;
                     senseServerStatus = false;
                     senseServerTurnedOff = true;
+
+                    // TCP
+                    //senseTCPstream.Close();
                 }
                 else { // If the server's turned on
                     senseUDPserverThread = new Thread(() => listenSense());
                     senseUDPserverThread.Start();
                     senseUDPstatusIndicator.Value = 100;
                     senseServerStatus = true;
+                    
+                    // TCP
+                    /*senseTCPclient.Connect(alSenseEP); // Error: Cannot access a disposed objefct
+                    senseTCPstream = senseTCPclient.GetStream();*/
+                    
                 }
             }
         }
 
         private void animodUDPpowerButton_Click(object sender, EventArgs e) {
             if (!animodServerStarted) { // If the initial configuration hasn't been done
-                if (int.TryParse(animodUDPportBox.Text, out animodUDPport)) {
-                    animodUDPserverEP = new IPEndPoint(IPAddress.Any, animodUDPport);
-                    animodUDPserver = new UdpClient(animodUDPserverEP);
-                    // Start the thread
-                    animodUDPserverThread = new Thread(() => listenAnimod());
-                    animodUDPserverThread.Start();
-                    animodUDPstatusIndicator.Value = 100;
-                    animodServerStatus = true;
-                    animodServerStarted = true;
-                    animodUDPchat.Text = "";
-                }
-                else {
-                    animodUDPchat.Text = "Please input a correct port";
-                }
+                animodUDPserverEP = new IPEndPoint(IPAddress.Any, animodUDPport);
+                animodUDPserver = new UdpClient(animodUDPserverEP);
+                // Start the thread
+                animodUDPserverThread = new Thread(() => listenAnimod());
+                animodUDPserverThread.Start();
+                animodUDPstatusIndicator.Value = 100;
+                animodServerStatus = true;
+                animodServerStarted = true;
+                animodUDPchat.Text = "";
             }
             else { // Once the initial configuration has been done
                 if (animodServerStatus) { // If the server is turned off
