@@ -33,17 +33,11 @@ namespace IMDAdataReceptionV2 {
         CustomLabel uAccLabel = new CustomLabel(-15, -13, "U", 1, LabelMarkStyle.None);
         bool changeChartFormat = false;
         bool senseServerStatus, senseServerStarted = false, senseServerTurnedOff;
-        //int senseUDPport;
         Thread senseUDPserverThread;
         IPEndPoint senseUDPserverEP;
+        IPEndPoint ALsenseEP, ARsenseEP, CCsenseEP, FLsenseEP, FRsenseEP;
         UdpClient senseUDPclient;
         Queue<double> data = new Queue<double>(10);
-
-        // TCP ESPsense variables
-        Int32 senseTCPport = 5332;
-        IPEndPoint alSenseEP, arSenseEP, ccSenseEP, flSenseEP, frSenseEP, senseTCPserverEP;
-        TcpClient senseTCPclient;
-        NetworkStream senseTCPstream;
 
         // UDP animod variables
         Int32 animodUDPport = 42069;
@@ -219,43 +213,43 @@ namespace IMDAdataReceptionV2 {
         }
 
         private void alResetButton_Click(object sender, EventArgs e) {
-            
+            senseUDPclient.Send(Encoding.ASCII.GetBytes("r"), Encoding.ASCII.GetBytes("r").Length, ALsenseEP);
         }
 
         private void alCalibrateButton_Click(object sender, EventArgs e) {
-            
+            senseUDPclient.Send(Encoding.ASCII.GetBytes("c"), Encoding.ASCII.GetBytes("c").Length, ALsenseEP);
         }
 
         private void arResetButton_Click(object sender, EventArgs e) {
-            senseTCPstream.Write(Encoding.ASCII.GetBytes("r"), 0, Encoding.ASCII.GetBytes("c").Length);
+            senseUDPclient.Send(Encoding.ASCII.GetBytes("r"), Encoding.ASCII.GetBytes("r").Length, ARsenseEP);
         }
 
         private void arCalibrateButton_Click(object sender, EventArgs e) {
-            senseTCPstream.Write(Encoding.ASCII.GetBytes("c"), 0, Encoding.ASCII.GetBytes("c").Length);
+            senseUDPclient.Send(Encoding.ASCII.GetBytes("c"), Encoding.ASCII.GetBytes("c").Length, ARsenseEP);
         }
 
         private void ccResetButton_Click(object sender, EventArgs e) {
-            
+            senseUDPclient.Send(Encoding.ASCII.GetBytes("r"), Encoding.ASCII.GetBytes("r").Length, CCsenseEP);
         }
 
         private void ccCalibrateButton_Click(object sender, EventArgs e) {
-            
+            senseUDPclient.Send(Encoding.ASCII.GetBytes("c"), Encoding.ASCII.GetBytes("c").Length, CCsenseEP);
         }
 
         private void flResetButton_Click(object sender, EventArgs e) {
-            
+            senseUDPclient.Send(Encoding.ASCII.GetBytes("r"), Encoding.ASCII.GetBytes("r").Length, FLsenseEP);
         }
 
         private void flCalibrateButton_Click(object sender, EventArgs e) {
-            
+            senseUDPclient.Send(Encoding.ASCII.GetBytes("c"), Encoding.ASCII.GetBytes("c").Length, FLsenseEP);
         }
 
         private void frResetButton_Click(object sender, EventArgs e) {
-            
+            senseUDPclient.Send(Encoding.ASCII.GetBytes("r"), Encoding.ASCII.GetBytes("r").Length, FRsenseEP);
         }
 
         private void frCalibrateButton_Click(object sender, EventArgs e) {
-            
+            senseUDPclient.Send(Encoding.ASCII.GetBytes("c"), Encoding.ASCII.GetBytes("c").Length, FRsenseEP);
         }
 
         void sendAndLog(String value) {
@@ -368,13 +362,11 @@ namespace IMDAdataReceptionV2 {
             if (!senseServerStarted) { // If the initial configuration hasn't been done
                 senseUDPserverEP = new IPEndPoint(IPAddress.Any, senseUDPport);
                 senseUDPclient = new UdpClient(senseUDPserverEP);
-       
-                // TCP
-                /*senseTCPserverEP = new IPEndPoint(IPAddress.Any, senseTCPport);
-                alSenseEP = new IPEndPoint(IPAddress.Parse("192.168.0.101"), senseTCPport);
-                senseTCPclient = new TcpClient(senseTCPserverEP);
-                senseTCPclient.Connect(alSenseEP); // Revisar si el puerto ya esta utilizado y ver si se puede desconectar
-                senseTCPstream = senseTCPclient.GetStream();*/
+                ALsenseEP = new IPEndPoint(IPAddress.Parse("192.168.0.100"), senseUDPport);
+                ARsenseEP = new IPEndPoint(IPAddress.Parse("192.168.0.101"), senseUDPport);
+                CCsenseEP = new IPEndPoint(IPAddress.Parse("192.168.0.102"), senseUDPport);
+                FLsenseEP = new IPEndPoint(IPAddress.Parse("192.168.0.103"), senseUDPport);
+                FRsenseEP = new IPEndPoint(IPAddress.Parse("192.168.0.104"), senseUDPport);
 
                 // Start the thread
                 senseUDPserverThread = new Thread(() => listenSense());
@@ -391,8 +383,7 @@ namespace IMDAdataReceptionV2 {
                     senseServerStatus = false;
                     senseServerTurnedOff = true;
 
-                    // TCP
-                    //senseTCPstream.Close();
+                    
                 }
                 else { // If the server's turned on
                     senseUDPserverThread = new Thread(() => listenSense());
@@ -400,9 +391,7 @@ namespace IMDAdataReceptionV2 {
                     senseUDPstatusIndicator.Value = 100;
                     senseServerStatus = true;
                     
-                    // TCP
-                    /*senseTCPclient.Connect(alSenseEP); // Error: Cannot access a disposed objefct
-                    senseTCPstream = senseTCPclient.GetStream();*/
+                    
                     
                 }
             }
